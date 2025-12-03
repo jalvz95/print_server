@@ -94,7 +94,7 @@
                 </div>
             </div>
         </div>
-        <div class="mt-4 p-4 bg-orange-50 rounded-lg">
+        <div class="mt-4 p-4 bg-orange-50 rounded-lg border-2 border-orange-200">
             <h3 class="font-semibold text-orange-800 mb-2">Características del Servidor Integrado:</h3>
             <ul class="text-sm text-orange-700 space-y-1">
                 <li>✓ Servidor de impresión incorporado en la impresora</li>
@@ -156,26 +156,40 @@ function simulacionApp() {
                 svg.setAttribute('height', '100%');
                 svg.innerHTML = '';
                 
+                // Agregar estilos de animación dentro del SVG
+                const style = document.createElementNS('http://www.w3.org/2000/svg', 'style');
+                style.textContent = `
+                    .network-line {
+                        stroke-width: 3;
+                        stroke-dasharray: 10, 5;
+                        opacity: 0.8;
+                        animation: dashFlow 1s linear infinite;
+                    }
+                    @keyframes dashFlow {
+                        from { stroke-dashoffset: 15; }
+                        to { stroke-dashoffset: 0; }
+                    }
+                `;
+                svg.appendChild(style);
+                
                 // Línea PCs -> Router
                 const line1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line1.setAttribute('class', 'network-line');
                 line1.setAttribute('x1', clientX);
                 line1.setAttribute('y1', centerY);
                 line1.setAttribute('x2', routerX);
                 line1.setAttribute('y2', centerY);
                 line1.setAttribute('stroke', '#10b981');
-                line1.setAttribute('stroke-width', '3');
-                line1.setAttribute('stroke-dasharray', '10,5');
                 svg.appendChild(line1);
                 
                 // Línea Router -> Impresora (directa, sin servidor intermedio)
                 const line2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line2.setAttribute('class', 'network-line');
                 line2.setAttribute('x1', routerX);
                 line2.setAttribute('y1', centerY);
                 line2.setAttribute('x2', printerX);
                 line2.setAttribute('y2', centerY);
                 line2.setAttribute('stroke', '#f97316');
-                line2.setAttribute('stroke-width', '4');
-                line2.setAttribute('stroke-dasharray', '10,5');
                 svg.appendChild(line2);
             }, 100);
         },

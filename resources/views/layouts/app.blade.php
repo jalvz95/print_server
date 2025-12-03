@@ -13,7 +13,9 @@
             <div class="flex justify-between h-16">
                 <div class="flex">
                     <div class="flex-shrink-0 flex items-center">
-                        <h1 class="text-2xl font-bold text-gray-800">🖨️ Print Server</h1>
+                        <a href="{{ route('tipo-servidor.index') }}" class="text-2xl font-bold text-gray-800 hover:text-gray-600 transition-colors cursor-pointer">
+                            🖨️ Print Server
+                        </a>
                     </div>
                     <div class="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-8">
                         <!-- Nav por defecto (visible cuando quickNavVisible es false) -->

@@ -32,18 +32,36 @@
     animation: packetMove 0.5s ease-in-out infinite alternate;
 }
 
-/* Animación de ondas en las líneas de conexión */
+/* Animación de ondas en las líneas de conexión - Genérico para todos los módulos */
+.network-line {
+    stroke-width: 3;
+    stroke-dasharray: 10, 5;
+    opacity: 0.8;
+    animation: dashMove 1.5s linear infinite;
+}
+
+.network-line-thick {
+    stroke-width: 4;
+    stroke-dasharray: 10, 5;
+    opacity: 0.8;
+    animation: dashMove 1.5s linear infinite;
+}
+
+/* Compatibilidad con IDs antiguos del dashboard básico */
 #line-client-router,
 #line-router-server {
     stroke-dasharray: 10, 5;
-    animation: dashMove 2s linear infinite;
+    animation: dashMove 1.5s linear infinite;
 }
 
 @keyframes dashMove {
-        to {
-            stroke-dashoffset: -15;
-        }
+    from {
+        stroke-dashoffset: 0;
     }
+    to {
+        stroke-dashoffset: -15;
+    }
+}
 
 /* Estilos para Terminal Animado */
 .terminal-container {

@@ -99,7 +99,7 @@
                 </div>
             </div>
         </div>
-        <div class="mt-4 p-4 bg-green-50 rounded-lg">
+        <div class="mt-4 p-4 bg-green-50 rounded-lg border-2 border-green-300">
             <h3 class="font-semibold text-green-800 mb-2">Características del Servidor Dedicado:</h3>
             <ul class="text-sm text-green-700 space-y-1">
                 <li>✓ Dispositivo físico pequeño y autónomo</li>
@@ -161,37 +161,50 @@ function simulacionApp() {
                 svg.setAttribute('height', '100%');
                 svg.innerHTML = '';
                 
+                // Agregar estilos de animación dentro del SVG
+                const style = document.createElementNS('http://www.w3.org/2000/svg', 'style');
+                style.textContent = `
+                    .network-line {
+                        stroke-width: 3;
+                        stroke-dasharray: 10, 5;
+                        opacity: 0.8;
+                        animation: dashFlow 1s linear infinite;
+                    }
+                    @keyframes dashFlow {
+                        from { stroke-dashoffset: 15; }
+                        to { stroke-dashoffset: 0; }
+                    }
+                `;
+                svg.appendChild(style);
+                
                 // Línea PCs -> Router
                 const line1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line1.setAttribute('class', 'network-line');
                 line1.setAttribute('x1', clientX);
                 line1.setAttribute('y1', centerY);
                 line1.setAttribute('x2', routerX);
                 line1.setAttribute('y2', centerY);
                 line1.setAttribute('stroke', '#10b981');
-                line1.setAttribute('stroke-width', '3');
-                line1.setAttribute('stroke-dasharray', '10,5');
                 svg.appendChild(line1);
                 
                 // Línea Router -> Servidor Dedicado
                 const line2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line2.setAttribute('class', 'network-line');
                 line2.setAttribute('x1', routerX);
                 line2.setAttribute('y1', centerY);
                 line2.setAttribute('x2', servidorX);
                 line2.setAttribute('y2', centerY);
                 line2.setAttribute('stroke', '#10b981');
-                line2.setAttribute('stroke-width', '3');
-                line2.setAttribute('stroke-dasharray', '10,5');
                 svg.appendChild(line2);
                 
                 // Línea Servidor Dedicado -> Impresora (USB)
                 const line3 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line3.setAttribute('class', 'network-line');
                 line3.setAttribute('x1', servidorX);
                 line3.setAttribute('y1', centerY);
                 line3.setAttribute('x2', printerX);
                 line3.setAttribute('y2', centerY);
                 line3.setAttribute('stroke', '#8b5cf6');
-                line3.setAttribute('stroke-width', '2');
-                line3.setAttribute('stroke-dasharray', '5,3');
                 svg.appendChild(line3);
             }, 100);
         },

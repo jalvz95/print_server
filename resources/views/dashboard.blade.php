@@ -265,30 +265,40 @@ function simulacionApp() {
                 // Limpiar líneas anteriores
                 svg.innerHTML = '';
                 
+                // Agregar estilos de animación dentro del SVG
+                const style = document.createElementNS('http://www.w3.org/2000/svg', 'style');
+                style.textContent = `
+                    .network-line {
+                        stroke-width: 3;
+                        stroke-dasharray: 10, 5;
+                        opacity: 0.8;
+                        animation: dashFlow 1s linear infinite;
+                    }
+                    @keyframes dashFlow {
+                        from { stroke-dashoffset: 15; }
+                        to { stroke-dashoffset: 0; }
+                    }
+                `;
+                svg.appendChild(style);
+                
                 // Línea Cliente -> Router
                 const line1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                line1.setAttribute('id', 'line-client-router');
+                line1.setAttribute('class', 'network-line');
                 line1.setAttribute('x1', clientX);
                 line1.setAttribute('y1', centerY);
                 line1.setAttribute('x2', centerX);
                 line1.setAttribute('y2', centerY);
                 line1.setAttribute('stroke', '#3b82f6');
-                line1.setAttribute('stroke-width', '3');
-                line1.setAttribute('stroke-dasharray', '10,5');
-                line1.setAttribute('opacity', '0.6');
                 svg.appendChild(line1);
                 
                 // Línea Router -> Servidor
                 const line2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                line2.setAttribute('id', 'line-router-server');
+                line2.setAttribute('class', 'network-line');
                 line2.setAttribute('x1', centerX);
                 line2.setAttribute('y1', centerY);
                 line2.setAttribute('x2', serverX);
                 line2.setAttribute('y2', centerY);
                 line2.setAttribute('stroke', '#3b82f6');
-                line2.setAttribute('stroke-width', '3');
-                line2.setAttribute('stroke-dasharray', '10,5');
-                line2.setAttribute('opacity', '0.6');
                 svg.appendChild(line2);
             }, 100);
         },

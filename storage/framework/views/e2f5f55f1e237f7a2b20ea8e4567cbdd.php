@@ -94,32 +94,32 @@
     </div>
 
     <!-- Información adicional -->
-    <div class="mt-12 bg-gray-50 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-gray-800 mb-4">📚 Información sobre los Tipos de Servidores</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm text-gray-700">
-            <div>
-                <h3 class="font-semibold mb-2">🔌 Servidor Dedicado (Hardware)</h3>
-                <p>Dispositivo físico pequeño y autónomo que se conecta entre la impresora y la red. Ideal para convertir impresoras USB antiguas en impresoras de red.</p>
+    <div class="mt-12 bg-gray-50 rounded-lg p-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">📚 Información sobre los Tipos de Servidores</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-sm text-gray-700">
+            <div class="bg-white rounded-lg p-6 border-2 border-gray-300 shadow-sm hover:shadow-md transition-shadow">
+                <h3 class="font-semibold mb-3 text-gray-800 text-center">🔌 Servidor Dedicado (Hardware)</h3>
+                <p class="leading-relaxed">Dispositivo físico pequeño y autónomo que se conecta entre la impresora y la red. Ideal para convertir impresoras USB antiguas en impresoras de red.</p>
             </div>
-            <div>
-                <h3 class="font-semibold mb-2">💾 Servidor Software</h3>
-                <p>Servicio ejecutándose en un servidor de red. Ofrece máximo control sobre políticas, seguridad y contabilidad de impresión.</p>
+            <div class="bg-white rounded-lg p-6 border-2 border-gray-300 shadow-sm hover:shadow-md transition-shadow">
+                <h3 class="font-semibold mb-3 text-gray-800 text-center">💾 Servidor Software</h3>
+                <p class="leading-relaxed">Servicio ejecutándose en un servidor de red. Ofrece máximo control sobre políticas, seguridad y contabilidad de impresión.</p>
             </div>
-            <div>
-                <h3 class="font-semibold mb-2">🖨️ Servidor Integrado</h3>
-                <p>La funcionalidad de servidor está incorporada directamente en la impresora. Máxima sencillez, sin hardware adicional.</p>
+            <div class="bg-white rounded-lg p-6 border-2 border-gray-300 shadow-sm hover:shadow-md transition-shadow">
+                <h3 class="font-semibold mb-3 text-gray-800 text-center">🖨️ Servidor Integrado</h3>
+                <p class="leading-relaxed">La funcionalidad de servidor está incorporada directamente en la impresora. Máxima sencillez, sin hardware adicional.</p>
             </div>
-            <div>
-                <h3 class="font-semibold mb-2">☁️ Servidor Cloud</h3>
-                <p>Gestión de impresión a través de servicios en línea. Ideal para trabajo remoto/híbrido sin necesidad de VPN.</p>
+            <div class="bg-white rounded-lg p-6 border-2 border-gray-300 shadow-sm hover:shadow-md transition-shadow">
+                <h3 class="font-semibold mb-3 text-gray-800 text-center">☁️ Servidor Cloud</h3>
+                <p class="leading-relaxed">Gestión de impresión a través de servicios en línea. Ideal para trabajo remoto/híbrido sin necesidad de VPN.</p>
             </div>
-            <div>
-                <h3 class="font-semibold mb-2">🐧 CUPS (Common Unix Printing System)</h3>
-                <p>Sistema de impresión estándar en Linux/Unix que utiliza IPP (Internet Printing Protocol) sobre HTTP. Gestiona colas, drivers y comunicación con impresoras de forma centralizada.</p>
+            <div class="bg-white rounded-lg p-6 border-2 border-gray-300 shadow-sm hover:shadow-md transition-shadow">
+                <h3 class="font-semibold mb-3 text-gray-800 text-center">🐧 CUPS (Common Unix Printing System)</h3>
+                <p class="leading-relaxed">Sistema de impresión estándar en Linux/Unix que utiliza IPP (Internet Printing Protocol) sobre HTTP. Gestiona colas, drivers y comunicación con impresoras de forma centralizada.</p>
             </div>
-            <div>
-                <h3 class="font-semibold mb-2">📠 LPR/LPD (Line Printer Remote/Daemon)</h3>
-                <p>Protocolo clásico de impresión en sistemas Unix/Linux. Usa el puerto 515 y comandos como lpr, lpq, lprm. Es el predecesor de CUPS y aún se usa en sistemas legacy.</p>
+            <div class="bg-white rounded-lg p-6 border-2 border-gray-300 shadow-sm hover:shadow-md transition-shadow">
+                <h3 class="font-semibold mb-3 text-gray-800 text-center">📠 LPR/LPD (Line Printer Remote/Daemon)</h3>
+                <p class="leading-relaxed">Protocolo clásico de impresión en sistemas Unix/Linux. Usa el puerto 515 y comandos como lpr, lpq, lprm. Es el predecesor de CUPS y aún se usa en sistemas legacy.</p>
             </div>
         </div>
     </div>

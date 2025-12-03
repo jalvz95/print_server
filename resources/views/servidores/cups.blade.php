@@ -118,7 +118,7 @@
                 </div>
             </div>
         </div>
-        <div class="mt-4 p-4 bg-purple-50 rounded-lg">
+        <div class="mt-4 p-4 bg-purple-50 rounded-lg border-2 border-purple-300">
             <h3 class="font-semibold text-purple-800 mb-2">Características de CUPS:</h3>
             <ul class="text-sm text-purple-700 space-y-1">
                 <li>✓ Sistema de impresión estándar en Linux/Unix</li>
@@ -307,6 +307,22 @@ function simulacionApp() {
                 svg.setAttribute('height', '100%');
                 svg.innerHTML = '';
                 
+                // Agregar estilos de animación dentro del SVG
+                const style = document.createElementNS('http://www.w3.org/2000/svg', 'style');
+                style.textContent = `
+                    .network-line {
+                        stroke-width: 3;
+                        stroke-dasharray: 10, 5;
+                        opacity: 0.8;
+                        animation: dashFlow 1s linear infinite;
+                    }
+                    @keyframes dashFlow {
+                        from { stroke-dashoffset: 15; }
+                        to { stroke-dashoffset: 0; }
+                    }
+                `;
+                svg.appendChild(style);
+                
                 // Definir marcador de flecha para CUPS (morado)
                 const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
                 const marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
@@ -337,15 +353,14 @@ function simulacionApp() {
                 defs.appendChild(markerGreen);
                 svg.appendChild(defs);
                 
-                // Línea Clientes -> Router (verde, más gruesa, con flecha)
+                // Línea Clientes -> Router (verde, con flecha)
                 const line1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line1.setAttribute('class', 'network-line');
                 line1.setAttribute('x1', clientX);
                 line1.setAttribute('y1', 100);
                 line1.setAttribute('x2', routerX);
                 line1.setAttribute('y2', centerY);
                 line1.setAttribute('stroke', '#10b981');
-                line1.setAttribute('stroke-width', '4');
-                line1.setAttribute('stroke-dasharray', '8,4');
                 line1.setAttribute('marker-end', 'url(#arrowhead-green)');
                 svg.appendChild(line1);
                 
@@ -372,15 +387,14 @@ function simulacionApp() {
                 label1.textContent = 'TCP/IP';
                 svg.appendChild(label1);
                 
-                // Línea Router -> Servidor CUPS (horizontal, morado, más gruesa, con flecha)
+                // Línea Router -> Servidor CUPS (horizontal, morado, con flecha)
                 const line2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line2.setAttribute('class', 'network-line');
                 line2.setAttribute('x1', routerX);
                 line2.setAttribute('y1', centerY);
                 line2.setAttribute('x2', servidorX);
                 line2.setAttribute('y2', centerY);
                 line2.setAttribute('stroke', '#8b5cf6');
-                line2.setAttribute('stroke-width', '5');
-                line2.setAttribute('stroke-dasharray', '8,4');
                 line2.setAttribute('marker-end', 'url(#arrowhead-cups)');
                 svg.appendChild(line2);
                 
@@ -409,13 +423,12 @@ function simulacionApp() {
                 
                 // Línea Servidor CUPS -> Impresoras (hacia la parte superior derecha, con flecha)
                 const line3 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line3.setAttribute('class', 'network-line');
                 line3.setAttribute('x1', servidorX);
                 line3.setAttribute('y1', centerY);
                 line3.setAttribute('x2', printerX);
                 line3.setAttribute('y2', printerY);
                 line3.setAttribute('stroke', '#8b5cf6');
-                line3.setAttribute('stroke-width', '4');
-                line3.setAttribute('stroke-dasharray', '8,4');
                 line3.setAttribute('marker-end', 'url(#arrowhead-cups)');
                 svg.appendChild(line3);
                 
