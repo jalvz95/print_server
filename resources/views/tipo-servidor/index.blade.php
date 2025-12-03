@@ -71,24 +71,24 @@
         </a>
 
         <!-- Servidor CUPS -->
-        <a href="{{ route('servidor.cups') }}" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow border-2 border-gray-200 hover:border-indigo-400">
+        <a href="{{ route('servidor.cups') }}" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow border-2 border-gray-200 hover:border-purple-400">
             <div class="text-center">
                 <div class="text-5xl mb-4">🐧</div>
                 <h3 class="text-xl font-bold text-gray-800 mb-2">CUPS</h3>
                 <p class="text-sm text-gray-600 mb-4">Common Unix Printing System - Sistema de impresión estándar en Linux/Unix con IPP</p>
-                <div class="bg-indigo-100 text-indigo-800 text-xs px-3 py-1 rounded-full inline-block">
+                <div class="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full inline-block">
                     Linux/Unix
                 </div>
             </div>
         </a>
 
         <!-- Servidor LPR/LPD -->
-        <a href="{{ route('servidor.lpr') }}" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow border-2 border-gray-200 hover:border-amber-400">
+        <a href="{{ route('servidor.lpr') }}" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow border-2 border-gray-200 hover:border-orange-400">
             <div class="text-center">
                 <div class="text-5xl mb-4">📠</div>
                 <h3 class="text-xl font-bold text-gray-800 mb-2">LPR/LPD</h3>
                 <p class="text-sm text-gray-600 mb-4">Line Printer Remote/Daemon - Protocolo clásico de impresión en Unix/Linux (Puerto 515)</p>
-                <div class="bg-amber-100 text-amber-800 text-xs px-3 py-1 rounded-full inline-block">
+                <div class="bg-orange-100 text-orange-800 text-xs px-3 py-1 rounded-full inline-block">
                     Protocolo Clásico
                 </div>
             </div>

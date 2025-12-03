@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Enviar Trabajo')
+@section('title', 'Enviar Impresión')
 
 @section('content')
 <div class="bg-white rounded-lg shadow-lg p-6 max-w-2xl mx-auto">
-    <h2 class="text-2xl font-bold mb-6">Enviar Nuevo Trabajo de Impresión</h2>
+    <h2 class="text-2xl font-bold mb-6">Enviar Nueva Impresión</h2>
 
     <form action="{{ route('trabajos.store') }}" method="POST">
         @csrf
@@ -107,7 +107,7 @@
                 Cancelar
             </a>
             <button type="submit" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md">
-                Enviar Trabajo
+                Enviar Impresión
             </button>
         </div>
     </form>

@@ -118,7 +118,7 @@
             <h2 class="text-xl font-bold mb-4">Acciones Rápidas</h2>
             <div class="space-y-2">
                 <a href="{{ route('trabajos.create', ['return_to' => request()->route()->getName()]) }}" class="block w-full bg-blue-500 hover:bg-blue-600 text-white text-center py-2 px-4 rounded">
-                    Enviar Nuevo Trabajo
+                    Enviar Nueva Impresión
                 </a>
                 <a href="{{ route('reglas.index') }}" class="block w-full bg-gray-500 hover:bg-gray-600 text-white text-center py-2 px-4 rounded">
                     Gestionar Reglas

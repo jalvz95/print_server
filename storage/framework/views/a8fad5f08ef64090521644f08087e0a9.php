@@ -3,7 +3,7 @@
 <?php $__env->startSection('content'); ?>
 <div x-data="simulacionApp()" x-init="init()">
     <!-- Header con información del tipo -->
-    <div class="bg-amber-50 border-l-4 border-amber-400 p-4 mb-6 rounded">
+    <div class="bg-orange-50 border-l-4 border-orange-400 p-4 mb-6 rounded">
         <div class="flex items-center">
             <div class="text-3xl mr-3">📠</div>
             <div>
@@ -11,7 +11,7 @@
                 <p class="text-sm text-gray-600 mt-1">Protocolo clásico de impresión en sistemas Unix/Linux que gestiona colas y comunicación con impresoras mediante el puerto 515. Predecesor de CUPS.</p>
             </div>
         </div>
-        <a href="<?php echo e(route('tipo-servidor.index')); ?>" class="text-sm text-amber-600 hover:text-amber-800 mt-2 inline-block">← Volver a selección de tipos</a>
+        <a href="<?php echo e(route('tipo-servidor.index')); ?>" class="text-sm text-orange-600 hover:text-orange-800 mt-2 inline-block">← Volver a selección de tipos</a>
     </div>
 
     <!-- Estadísticas -->
@@ -41,7 +41,7 @@
     <!-- Visualización específica: Servidor CUPS -->
     <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
         <h2 class="text-xl font-bold mb-4">📠 Arquitectura: Line Printer Remote/Daemon (LPR/LPD)</h2>
-        <div id="packet-tracer" class="relative bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg p-8 min-h-[500px] border-2 border-amber-200 overflow-hidden">
+        <div id="packet-tracer" class="relative bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg p-8 min-h-[500px] border-2 border-orange-200 overflow-hidden" data-impresoras='<?php echo json_encode($impresoras, 15, 512) ?>'>
             <!-- Clientes Linux/Unix (10 computadoras) - Parte superior izquierda -->
             <div class="absolute left-4 top-4" style="z-index: 3;">
                 <div class="grid grid-cols-2 gap-2" style="width: 180px;">
@@ -67,11 +67,11 @@
             <div class="absolute transform -translate-x-1/2 -translate-y-1/2" style="z-index: 3; top: 35%; left: 53%;">
                 <div class="bg-amber-200 rounded-lg shadow-lg p-4 border-4 border-amber-600 min-w-[160px] text-center" style="background-color: #fef3c7; border-color: #f59e0b;">
                     <div class="text-3xl mb-2">🖥️</div>
-                    <div class="text-xs font-bold text-amber-900">Servidor LPR/LPD</div>
-                    <div class="text-[10px] text-amber-800 mt-1">Linux / Unix Server</div>
-                    <div class="text-[10px] text-amber-700 mt-1">LPD Daemon (lpd)</div>
-                    <div class="text-[10px] text-amber-700 mt-1">LPR Protocol (Port 515)</div>
-                    <div class="text-[10px] text-amber-700 mt-1">Spooler /var/spool/lpd</div>
+                    <div class="text-xs font-bold text-orange-900">Servidor LPR/LPD</div>
+                    <div class="text-[10px] text-orange-800 mt-1">Linux / Unix Server</div>
+                    <div class="text-[10px] text-orange-700 mt-1">LPD Daemon (lpd)</div>
+                    <div class="text-[10px] text-orange-700 mt-1">LPR Protocol (Port 515)</div>
+                    <div class="text-[10px] text-orange-700 mt-1">Spooler /var/spool/lpd</div>
                 </div>
             </div>
 
@@ -111,14 +111,14 @@
                 <div class="text-xs text-gray-600" id="packet-status">Esperando trabajo...</div>
                 <div class="mt-2">
                     <div class="w-full bg-gray-200 rounded-full h-2">
-                        <div id="packet-progress" class="bg-amber-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                        <div id="packet-progress" class="bg-orange-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="mt-4 p-4 bg-amber-50 rounded-lg">
-            <h3 class="font-semibold text-amber-800 mb-2">Características de LPR/LPD:</h3>
-            <ul class="text-sm text-amber-700 space-y-1">
+        <div class="mt-4 p-4 bg-orange-50 rounded-lg">
+            <h3 class="font-semibold text-orange-800 mb-2">Características de LPR/LPD:</h3>
+            <ul class="text-sm text-orange-700 space-y-1">
                 <li>✓ Protocolo clásico de impresión en Unix/Linux</li>
                 <li>✓ Protocolo LPR/LPD sobre TCP (puerto 515)</li>
                 <li>✓ Gestión de colas de impresión (/var/spool/lpd)</li>
@@ -472,7 +472,7 @@ function simulacionApp() {
             container.innerHTML = '';
             
             const packet = document.createElement('div');
-            packet.className = 'packet absolute bg-amber-500 text-white text-xs font-bold rounded-full w-12 h-12 flex items-center justify-center shadow-lg border-2 border-amber-700';
+            packet.className = 'packet absolute bg-orange-500 text-white text-xs font-bold rounded-full w-12 h-12 flex items-center justify-center shadow-lg border-2 border-orange-700';
             packet.style.left = '200px';
             packet.style.top = '100px';
             packet.textContent = '📄';
@@ -1108,8 +1108,16 @@ function configTerminalConsole() {
             let output = [];
             if (command.dynamic) {
                 if (command.cmd === 'lpc status all') {
-                    // Agregar impresoras dinámicamente
-                    const impresoras = <?php echo json_encode($impresoras, 15, 512) ?>;
+                    // Agregar impresoras dinámicamente leyendo desde atributo data (evita mezclar Blade/PHP dentro del JS)
+                    let impresoras = [];
+                    const impresorasDataEl = document.getElementById('packet-tracer');
+                    if (impresorasDataEl && impresorasDataEl.dataset.impresoras) {
+                        try {
+                            impresoras = JSON.parse(impresorasDataEl.dataset.impresoras);
+                        } catch (e) {
+                            impresoras = [];
+                        }
+                    }
                     impresoras.forEach(impresora => {
                         output.push(`${impresora.nombre}:`);
                         output.push(`    printer is on device 'parallel' speed -1`);

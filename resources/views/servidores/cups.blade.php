@@ -4,8 +4,8 @@
 
 @section('content')
 <div x-data="simulacionApp()" x-init="init()">
-    <!-- Header con información del tipo -->
-    <div class="bg-indigo-50 border-l-4 border-indigo-400 p-4 mb-6 rounded">
+    <!-- Header con información del tipo (estilo morado característico de CUPS) -->
+    <div class="bg-purple-50 border-l-4 border-purple-400 p-4 mb-6 rounded">
         <div class="flex items-center">
             <div class="text-3xl mr-3">🐧</div>
             <div>
@@ -13,7 +13,7 @@
                 <p class="text-sm text-gray-600 mt-1">Sistema de impresión estándar en Linux/Unix que gestiona colas, drivers y comunicación con impresoras mediante IPP (Internet Printing Protocol).</p>
             </div>
         </div>
-        <a href="{{ route('tipo-servidor.index') }}" class="text-sm text-indigo-600 hover:text-indigo-800 mt-2 inline-block">← Volver a selección de tipos</a>
+        <a href="{{ route('tipo-servidor.index') }}" class="text-sm text-purple-600 hover:text-purple-900 mt-2 inline-block">← Volver a selección de tipos</a>
     </div>
 
     <!-- Estadísticas -->
@@ -43,7 +43,7 @@
     <!-- Visualización específica: Servidor CUPS -->
     <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
         <h2 class="text-xl font-bold mb-4">🐧 Arquitectura: Common Unix Printing System (CUPS)</h2>
-        <div id="packet-tracer" class="relative bg-gradient-to-br from-indigo-50 to-blue-50 rounded-lg p-8 min-h-[500px] border-2 border-indigo-200 overflow-hidden">
+        <div id="packet-tracer" class="relative bg-gradient-to-br from-purple-50 to-indigo-50 rounded-lg p-8 min-h-[500px] border-2 border-purple-200 overflow-hidden" data-impresoras='@json($impresoras)'>
             <!-- Clientes Linux/Unix (10 computadoras) - Parte superior izquierda -->
             <div class="absolute left-4 top-4" style="z-index: 3;">
                 <div class="grid grid-cols-2 gap-2" style="width: 180px;">
@@ -108,9 +108,9 @@
             <div id="packet-container" class="absolute inset-0 pointer-events-none" style="z-index: 2; width: 100%; height: 100%;"></div>
 
             <!-- Estado actual - Parte inferior, centrado -->
-            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white rounded-lg shadow-lg p-4 border-2 border-gray-300 min-w-[300px]" style="z-index: 4;">
-                <div class="text-sm font-semibold text-gray-700 mb-2">Estado de Transmisión (IPP):</div>
-                <div class="text-xs text-gray-600" id="packet-status">Esperando trabajo...</div>
+            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-purple-50 rounded-lg shadow-lg p-4 border-2 border-purple-300 min-w-[300px]" style="z-index: 4;">
+                <div class="text-sm font-semibold text-purple-800 mb-2">Estado de Transmisión (IPP):</div>
+                <div class="text-xs text-purple-700" id="packet-status">Esperando trabajo...</div>
                 <div class="mt-2">
                     <div class="w-full bg-gray-200 rounded-full h-2">
                         <div id="packet-progress" class="bg-purple-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
@@ -118,9 +118,9 @@
                 </div>
             </div>
         </div>
-        <div class="mt-4 p-4 bg-indigo-50 rounded-lg">
-            <h3 class="font-semibold text-indigo-800 mb-2">Características de CUPS:</h3>
-            <ul class="text-sm text-indigo-700 space-y-1">
+        <div class="mt-4 p-4 bg-purple-50 rounded-lg">
+            <h3 class="font-semibold text-purple-800 mb-2">Características de CUPS:</h3>
+            <ul class="text-sm text-purple-700 space-y-1">
                 <li>✓ Sistema de impresión estándar en Linux/Unix</li>
                 <li>✓ Protocolo IPP (Internet Printing Protocol) sobre HTTP</li>
                 <li>✓ Gestión de colas de impresión (/var/spool/cups)</li>
@@ -1121,8 +1121,16 @@ function configTerminalConsole() {
                 if (command.cmd === 'lpstat -t') {
                     output.push('scheduler is running');
                     output.push('system default destination: Impresora_1');
-                    // Agregar impresoras dinámicamente
-                    const impresoras = @json($impresoras);
+                    // Agregar impresoras dinámicamente leyendo desde atributo data (evita mezclar Blade/PHP dentro del JS)
+                    let impresoras = [];
+                    const impresorasDataEl = document.getElementById('packet-tracer');
+                    if (impresorasDataEl && impresorasDataEl.dataset.impresoras) {
+                        try {
+                            impresoras = JSON.parse(impresorasDataEl.dataset.impresoras);
+                        } catch (e) {
+                            impresoras = [];
+                        }
+                    }
                     impresoras.forEach(impresora => {
                         output.push(`device for ${impresora.nombre}: ipp://192.168.1.${100 + impresora.id}:631/ipp/print`);
                     });
