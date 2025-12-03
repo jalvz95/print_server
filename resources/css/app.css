@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos para Packet Tracer */
+.packet {
+    animation: pulse 2s ease-in-out infinite;
+    z-index: 10;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: translateY(-50%) scale(1);
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+    }
+    50% {
+        transform: translateY(-50%) scale(1.1);
+        box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+    }
+}
+
+@keyframes packetMove {
+    from {
+        opacity: 0.8;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.packet.moving {
+    animation: packetMove 0.5s ease-in-out infinite alternate;
+}
+
+/* Animación de ondas en las líneas de conexión */
+#line-client-router,
+#line-router-server {
+    stroke-dasharray: 10, 5;
+    animation: dashMove 2s linear infinite;
+}
+
+@keyframes dashMove {
+        to {
+            stroke-dashoffset: -15;
+        }
+    }
+
+/* Estilos para Terminal Animado */
+.terminal-container {
+    background: #000000;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+.terminal-cursor {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 49% {
+        opacity: 1;
+    }
+    50%, 100% {
+        opacity: 0;
+    }
+}
+
+.terminal-output {
+    max-height: 400px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #333333 #000000;
+    background: #000000;
+    color: #ffffff;
+}
+
+.terminal-output::-webkit-scrollbar {
+    width: 8px;
+}
+
+.terminal-output::-webkit-scrollbar-track {
+    background: #000000;
+}
+
+.terminal-output::-webkit-scrollbar-thumb {
+    background: #333333;
+    border-radius: 4px;
+}
+
+.terminal-output::-webkit-scrollbar-thumb:hover {
+    background: #444444;
+}
+

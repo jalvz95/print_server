@@ -1,0 +1,59 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: print_server_app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - print_server_network
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_DATABASE=print_server
+      - DB_USERNAME=print_user
+      - DB_PASSWORD=print_password
+
+  nginx:
+    image: nginx:alpine
+    container_name: print_server_nginx
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - print_server_network
+    depends_on:
+      - app
+
+  db:
+    image: mysql:8.0
+    container_name: print_server_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: print_server
+      MYSQL_USER: print_user
+      MYSQL_PASSWORD: print_password
+      MYSQL_ROOT_PASSWORD: root_password
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - print_server_network
+
+networks:
+  print_server_network:
+    driver: bridge
+
+volumes:
+  db_data:
+    driver: local
+
