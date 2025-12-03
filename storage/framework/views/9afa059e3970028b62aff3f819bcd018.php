@@ -100,7 +100,7 @@
 
             <!-- Nivel 2: Input Formats -->
             <div class="mb-2">
-                <div class="text-xs text-gray-500 font-medium mb-2 ml-2">Input Formats</div>
+                <div class="text-xs text-gray-500 font-medium mb-2 ml-2">Formatos de Entrada</div>
                 <div class="grid grid-cols-4 gap-4">
                     <div class="border-2 rounded-lg p-3 text-center transition-all duration-300"
                          :class="inputFormat === 'text' ? 'border-blue-500 bg-blue-50 ring-2 ring-blue-300' : 'border-gray-300 bg-white'">
@@ -185,7 +185,7 @@
 
             <!-- Nivel 6: Output Filters -->
             <div class="mb-2">
-                <div class="text-xs text-gray-500 font-medium mb-2 ml-2">Raster to Device Filters</div>
+                <div class="text-xs text-gray-500 font-medium mb-2 ml-2">Filtros de raster a dispositivo</div>
                 <div class="grid grid-cols-5 gap-3">
                     <div class="border-2 rounded-lg p-3 text-center transition-all duration-300"
                          :class="outputFilter === 'pcl' && currentStep === 'output' ? 'border-green-500 bg-green-100 ring-2 ring-green-300' : 'border-gray-300 bg-white'">
@@ -219,7 +219,7 @@
             <div class="mt-6 border-2 border-gray-400 rounded-lg p-4 transition-all duration-300"
                  :class="currentStep === 'backend' ? 'border-blue-500 bg-blue-50' : 'bg-gray-50'">
                 <div class="text-center font-bold text-gray-800 mb-4">CUPS Backends</div>
-                <div class="text-center text-xs text-gray-500 mb-4">(transfer print commands to print devices)</div>
+                <div class="text-center text-xs text-gray-500 mb-4">(transfiere los comandos de impresión a los dispositivos de impresión)</div>
                 
                 <div class="grid grid-cols-2 gap-4">
                     <!-- Local Connections -->
@@ -274,11 +274,79 @@
                 </div>
             </div>
 
-            <!-- Nivel 8: Impresoras -->
-            <div class="flex justify-center gap-8 mt-6" x-show="currentStep === 'printer'">
-                <div class="text-center animate-bounce">
-                    <div class="text-4xl">🖨️</div>
-                    <div class="text-xs text-gray-500 mt-1">Impresora</div>
+            <!-- Nivel 8: Impresoras - Diferentes según el backend -->
+            <div class="mt-6" x-show="currentStep === 'printer'">
+                <!-- Conexiones Locales -->
+                <div x-show="['parallel', 'serial', 'usb', 'ieee1394'].includes(outputBackend)" class="flex justify-center gap-8">
+                    <div class="text-center animate-bounce" x-show="outputBackend === 'parallel'">
+                        <div class="text-5xl mb-2">🖨️</div>
+                        <div class="text-xs font-medium text-gray-700">Impresora Paralela</div>
+                        <div class="text-xs text-gray-500">/dev/lp0</div>
+                    </div>
+                    <div class="text-center animate-bounce" x-show="outputBackend === 'serial'">
+                        <div class="text-5xl mb-2">🖨️</div>
+                        <div class="text-xs font-medium text-gray-700">Impresora Serial</div>
+                        <div class="text-xs text-gray-500">/dev/ttyS0</div>
+                    </div>
+                    <div class="text-center animate-bounce" x-show="outputBackend === 'usb'">
+                        <div class="text-5xl mb-2">🖨️</div>
+                        <div class="text-xs font-medium text-gray-700">Impresora USB</div>
+                        <div class="text-xs text-gray-500">USB Connection</div>
+                    </div>
+                    <div class="text-center animate-bounce" x-show="outputBackend === 'ieee1394'">
+                        <div class="text-5xl mb-2">🖨️</div>
+                        <div class="text-xs font-medium text-gray-700">Impresora FireWire</div>
+                        <div class="text-xs text-gray-500">IEEE-1394</div>
+                    </div>
+                </div>
+
+                <!-- Conexiones de Red -->
+                <div x-show="['ipp', 'lprlpd', 'smb', 'jetdirect', 'appletalk'].includes(outputBackend)" class="flex justify-center gap-12">
+                    <div class="text-center animate-bounce" x-show="outputBackend === 'ipp'">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="text-3xl">🌐</div>
+                            <div class="text-4xl">🖨️</div>
+                        </div>
+                        <div class="text-xs font-medium text-gray-700">Impresora IPP</div>
+                        <div class="text-xs text-gray-500">Internet Printing Protocol</div>
+                        <div class="text-xs text-gray-400">Puerto 631</div>
+                    </div>
+                    <div class="text-center animate-bounce" x-show="outputBackend === 'lprlpd'">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="text-3xl">🌐</div>
+                            <div class="text-4xl">🖨️</div>
+                        </div>
+                        <div class="text-xs font-medium text-gray-700">Impresora LPR/LPD</div>
+                        <div class="text-xs text-gray-500">Line Printer Daemon</div>
+                        <div class="text-xs text-gray-400">Puerto 515</div>
+                    </div>
+                    <div class="text-center animate-bounce" x-show="outputBackend === 'smb'">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="text-3xl">🌐</div>
+                            <div class="text-4xl">🖨️</div>
+                        </div>
+                        <div class="text-xs font-medium text-gray-700">Impresora SMB/CIFS</div>
+                        <div class="text-xs text-gray-500">Windows Sharing</div>
+                        <div class="text-xs text-gray-400">Puerto 445</div>
+                    </div>
+                    <div class="text-center animate-bounce" x-show="outputBackend === 'jetdirect'">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="text-3xl">🌐</div>
+                            <div class="text-4xl">🖨️</div>
+                        </div>
+                        <div class="text-xs font-medium text-gray-700">Impresora JetDirect</div>
+                        <div class="text-xs text-gray-500">HP JetDirect/AppSocket</div>
+                        <div class="text-xs text-gray-400">Puerto 9100</div>
+                    </div>
+                    <div class="text-center animate-bounce" x-show="outputBackend === 'appletalk'">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="text-3xl">🌐</div>
+                            <div class="text-4xl">🖨️</div>
+                        </div>
+                        <div class="text-xs font-medium text-gray-700">Impresora AppleTalk</div>
+                        <div class="text-xs text-gray-500">NetATalk/PAP</div>
+                        <div class="text-xs text-gray-400">Legacy Mac</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -325,7 +393,11 @@
                 <p class="text-sm text-gray-600 mb-4">El raster se convierte al lenguaje nativo de la impresora: PCL, ESC/P, Dymo, o usando drivers como Gutenprint o TurboPrint.</p>
                 
                 <h4 class="font-medium text-purple-700 mb-2">6. CUPS Backends</h4>
-                <p class="text-sm text-gray-600">Finalmente, el trabajo se envía a la impresora via conexiones locales (USB, Parallel, Serial) o de red (IPP, LPR/LPD, SMB/CIFS, JetDirect, AppleTalk).</p>
+                <p class="text-sm text-gray-600 mb-3">Finalmente, el trabajo se envía a la impresora. El backend determina el tipo de conexión:</p>
+                <div class="text-xs text-gray-600 space-y-1 ml-4">
+                    <p><strong>Locales:</strong> Parallel (/dev/lp0), Serial (/dev/ttyS0), USB, IEEE-1394 (FireWire)</p>
+                    <p><strong>Red:</strong> IPP (631), LPR/LPD (515), SMB/CIFS (445), JetDirect (9100), AppleTalk</p>
+                </div>
             </div>
         </div>
     </div>
