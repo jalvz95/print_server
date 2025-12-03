@@ -10,14 +10,14 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Servidor Básico (Dashboard Original) -->
-        <a href="{{ route('dashboard') }}" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow border-2 border-gray-200 hover:border-blue-400">
+        <!-- Servidor Básico -->
+        <a href="{{ route('servidor.basico') }}" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow border-2 border-gray-200 hover:border-blue-400">
             <div class="text-center">
                 <div class="text-5xl mb-4">🖥️</div>
                 <h3 class="text-xl font-bold text-gray-800 mb-2">Servidor Básico</h3>
-                <p class="text-sm text-gray-600 mb-4">Simulación básica de servidor de impresión con una sola impresora</p>
+                <p class="text-sm text-gray-600 mb-4">Simulación básica de servidor de impresión con arquitectura cliente-servidor</p>
                 <div class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full inline-block">
-                    Vista General
+                    Básico
                 </div>
             </div>
         </a>

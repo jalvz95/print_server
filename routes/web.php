@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TrabajoController;
 use App\Http\Controllers\ReglaController;
 use App\Http\Controllers\TipoServidorController;
+use App\Http\Controllers\ServidorBasicoController;
 use App\Http\Controllers\ServidorDedicadoController;
 use App\Http\Controllers\ServidorSoftwareController;
 use App\Http\Controllers\ServidorIntegradoController;
@@ -15,11 +16,12 @@ use App\Http\Controllers\ServidorLprController;
 // Página de selección de tipo de servidor
 Route::get('/', [TipoServidorController::class, 'index'])->name('tipo-servidor.index');
 
-// Dashboard original (ahora como "Servidor Básico")
+// Dashboard con estadísticas y gráficos
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 // Módulos de diferentes tipos de servidores
 Route::prefix('servidor')->name('servidor.')->group(function () {
+    Route::get('/basico', [ServidorBasicoController::class, 'index'])->name('basico');
     Route::get('/dedicado', [ServidorDedicadoController::class, 'index'])->name('dedicado');
     Route::get('/software', [ServidorSoftwareController::class, 'index'])->name('software');
     Route::get('/integrado', [ServidorIntegradoController::class, 'index'])->name('integrado');

@@ -1,17 +1,17 @@
-<?php $__env->startSection('title', 'Servidor Dedicado (Hardware)'); ?>
+<?php $__env->startSection('title', 'Servidor Básico'); ?>
 
 <?php $__env->startSection('content'); ?>
 <div x-data="simulacionApp()" x-init="init()">
     <!-- Header con información del tipo -->
-    <div class="bg-green-50 border-l-4 border-green-400 p-4 mb-6 rounded">
+    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6 rounded">
         <div class="flex items-center">
-            <div class="text-3xl mr-3">🔌</div>
+            <div class="text-3xl mr-3">🖥️</div>
             <div>
-                <h1 class="text-2xl font-bold text-gray-800">Servidor de Impresión Dedicado (Hardware)</h1>
-                <p class="text-sm text-gray-600 mt-1">Dispositivo físico autónomo que convierte impresoras USB en impresoras de red. Independiente de cualquier PC.</p>
+                <h1 class="text-2xl font-bold text-gray-800">Servidor de Impresión Básico</h1>
+                <p class="text-sm text-gray-600 mt-1">Simulación básica de servidor de impresión con arquitectura cliente-servidor tradicional.</p>
             </div>
         </div>
-        <a href="<?php echo e(route('tipo-servidor.index')); ?>" class="text-sm text-green-600 hover:text-green-800 mt-2 inline-block">← Volver a selección de tipos</a>
+        <a href="<?php echo e(route('tipo-servidor.index')); ?>" class="text-sm text-blue-600 hover:text-blue-800 mt-2 inline-block">← Volver a selección de tipos</a>
     </div>
 
     <!-- Estadísticas -->
@@ -38,47 +38,34 @@
         </div>
     </div>
 
-    <!-- Visualización específica: Servidor Dedicado -->
+    <!-- Visualización de Red -->
     <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
-        <h2 class="text-xl font-bold mb-4">🔌 Arquitectura: Servidor Dedicado (Hardware)</h2>
-        <div id="packet-tracer" class="relative bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-8 min-h-[500px] border-2 border-green-200 overflow-hidden">
-            <!-- Múltiples PCs (10 computadoras) - Posicionadas en la parte superior izquierda -->
-            <div class="absolute left-4 top-4" style="z-index: 3;">
-                <div class="grid grid-cols-2 gap-2" style="width: 180px;">
-                    <template x-for="i in Array.from({length: 10}, (_, i) => i + 1)" :key="i">
-                        <div class="bg-white rounded shadow p-2 border border-blue-300 text-center">
-                            <div class="text-xs">💻</div>
-                            <div class="text-[8px] font-semibold" x-text="'PC' + i"></div>
-                        </div>
-                    </template>
+        <h2 class="text-xl font-bold mb-4">🌐 Visualización de Red (Simulación)</h2>
+        <div id="packet-tracer" class="relative bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-8 min-h-[400px] border-2 border-blue-200 overflow-hidden">
+            <!-- Cliente/PC -->
+            <div class="absolute left-4 top-1/2 transform -translate-y-1/2" style="z-index: 3;">
+                <div class="bg-white rounded-lg shadow-lg p-4 border-2 border-blue-400 min-w-[120px] text-center">
+                    <div class="text-3xl mb-2">💻</div>
+                    <div class="text-xs font-semibold text-gray-700">PC Cliente</div>
+                    <div class="text-xs text-gray-500 mt-1" x-text="trabajoActual ? trabajoActual.usuario.nombre : 'Esperando...'"></div>
                 </div>
             </div>
 
-            <!-- Router/Switch - Centrado verticalmente, 1/3 desde la izquierda -->
-            <div class="absolute left-1/4 top-1/2 transform -translate-x-1/2 -translate-y-1/2" style="z-index: 3;">
-                <div class="bg-white rounded-lg shadow-lg p-4 border-2 border-green-400 min-w-[120px] text-center">
+            <!-- Router/Switch -->
+            <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2" style="z-index: 3;">
+                <div class="bg-white rounded-lg shadow-lg p-4 border-2 border-green-400 min-w-[100px] text-center">
                     <div class="text-3xl mb-2">🔌</div>
-                    <div class="text-xs font-semibold text-gray-700">Router/Switch</div>
+                    <div class="text-xs font-semibold text-gray-700">Router</div>
                     <div class="text-xs text-gray-500 mt-1">192.168.1.1</div>
                 </div>
             </div>
 
-            <!-- Servidor Dedicado (Hardware) - Centrado verticalmente, 2/3 desde la izquierda -->
-            <div class="absolute left-2/3 top-1/2 transform -translate-x-1/2 -translate-y-1/2" style="z-index: 3;">
-                <div class="bg-green-100 rounded-lg shadow-lg p-4 border-4 border-green-500 min-w-[140px] text-center">
-                    <div class="text-3xl mb-2">📦</div>
-                    <div class="text-xs font-bold text-green-800">Servidor Dedicado</div>
-                    <div class="text-[10px] text-green-700 mt-1">Hardware Autónomo</div>
-                    <div class="text-[10px] text-green-600 mt-1">USB → Ethernet</div>
-                </div>
-            </div>
-
-            <!-- Impresora USB - Derecha, centrada verticalmente -->
+            <!-- Impresora -->
             <div class="absolute right-4 top-1/2 transform -translate-y-1/2" style="z-index: 3;">
                 <div class="bg-white rounded-lg shadow-lg p-4 border-2 border-purple-400 min-w-[120px] text-center">
                     <div class="text-3xl mb-2">🖨️</div>
-                    <div class="text-xs font-semibold text-gray-700">Impresora USB</div>
-                    <div class="text-xs text-gray-500 mt-1">Conectada vía USB</div>
+                    <div class="text-xs font-semibold text-gray-700">Impresora</div>
+                    <div class="text-xs text-gray-500 mt-1">HP LaserJet</div>
                 </div>
             </div>
 
@@ -88,29 +75,29 @@
             <!-- Paquetes animados -->
             <div id="packet-container" class="absolute inset-0 pointer-events-none" style="z-index: 2;"></div>
 
-            <!-- Estado actual - Parte inferior, centrado -->
+            <!-- Estado actual -->
             <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white rounded-lg shadow-lg p-4 border-2 border-gray-300 min-w-[300px]" style="z-index: 4;">
                 <div class="text-sm font-semibold text-gray-700 mb-2">Estado de Transmisión:</div>
                 <div class="text-xs text-gray-600" id="packet-status">Esperando trabajo...</div>
                 <div class="mt-2">
                     <div class="w-full bg-gray-200 rounded-full h-2">
-                        <div id="packet-progress" class="bg-green-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                        <div id="packet-progress" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="mt-4 p-4 bg-green-50 rounded-lg border-2 border-green-300">
-            <h3 class="font-semibold text-green-800 mb-2">Características del Servidor Dedicado:</h3>
-            <ul class="text-sm text-green-700 space-y-1">
-                <li>✓ Dispositivo físico pequeño y autónomo</li>
-                <li>✓ Conecta impresoras USB a la red</li>
-                <li>✓ No requiere PC o servidor adicional</li>
-                <li>✓ Ideal para impresoras antiguas sin conexión de red</li>
+        <div class="mt-4 p-4 bg-blue-50 rounded-lg border-2 border-blue-200">
+            <h3 class="font-semibold text-blue-800 mb-2">Características del Servidor Básico:</h3>
+            <ul class="text-sm text-blue-700 space-y-1">
+                <li>✓ Arquitectura cliente-servidor tradicional</li>
+                <li>✓ Conexión directa a través de red LAN</li>
+                <li>✓ Ideal para entornos de oficina pequeños</li>
+                <li>✓ Gestión centralizada de impresión</li>
             </ul>
         </div>
     </div>
 
-    <!-- Incluir el resto del dashboard (flujo de trabajos, etc.) -->
+    <!-- Incluir el flujo de trabajos -->
     <?php echo $__env->make('servidores.partials.flujo-trabajos', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 </div>
 
@@ -150,10 +137,9 @@ function simulacionApp() {
                 if (!container) return;
                 const width = container.offsetWidth || 800;
                 const height = container.offsetHeight || 400;
-                const routerX = width / 4;
-                const servidorX = (width * 2) / 3;
+                const centerX = width / 2;
                 const centerY = height / 2;
-                const clientX = 200;
+                const clientX = 140;
                 const printerX = width - 140;
                 
                 svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
@@ -177,35 +163,25 @@ function simulacionApp() {
                 `;
                 svg.appendChild(style);
                 
-                // Línea PCs -> Router
+                // Línea Cliente -> Router
                 const line1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
                 line1.setAttribute('class', 'network-line');
                 line1.setAttribute('x1', clientX);
                 line1.setAttribute('y1', centerY);
-                line1.setAttribute('x2', routerX);
+                line1.setAttribute('x2', centerX);
                 line1.setAttribute('y2', centerY);
-                line1.setAttribute('stroke', '#10b981');
+                line1.setAttribute('stroke', '#3b82f6');
                 svg.appendChild(line1);
                 
-                // Línea Router -> Servidor Dedicado
+                // Línea Router -> Impresora
                 const line2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
                 line2.setAttribute('class', 'network-line');
-                line2.setAttribute('x1', routerX);
+                line2.setAttribute('x1', centerX);
                 line2.setAttribute('y1', centerY);
-                line2.setAttribute('x2', servidorX);
+                line2.setAttribute('x2', printerX);
                 line2.setAttribute('y2', centerY);
-                line2.setAttribute('stroke', '#10b981');
+                line2.setAttribute('stroke', '#8b5cf6');
                 svg.appendChild(line2);
-                
-                // Línea Servidor Dedicado -> Impresora (USB)
-                const line3 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                line3.setAttribute('class', 'network-line');
-                line3.setAttribute('x1', servidorX);
-                line3.setAttribute('y1', centerY);
-                line3.setAttribute('x2', printerX);
-                line3.setAttribute('y2', centerY);
-                line3.setAttribute('stroke', '#8b5cf6');
-                svg.appendChild(line3);
             }, 100);
         },
 
@@ -238,26 +214,20 @@ function simulacionApp() {
             container.innerHTML = '';
             
             const packet = document.createElement('div');
-            packet.className = 'packet absolute bg-green-500 text-white text-xs font-bold rounded-full w-12 h-12 flex items-center justify-center shadow-lg border-2 border-green-700';
-            packet.style.left = '200px';
+            packet.className = 'packet absolute bg-blue-500 text-white text-xs font-bold rounded-full w-12 h-12 flex items-center justify-center shadow-lg border-2 border-blue-700';
+            packet.style.left = '140px';
             packet.style.top = '50%';
             packet.style.transform = 'translateY(-50%)';
             packet.textContent = '📄';
             container.appendChild(packet);
 
-            statusEl.textContent = `📤 Enviando desde PC: ${trabajo.descripcion}...`;
-            this.animarPaquete(packet, '200px', '50%', '25%', '50%', 1500, () => {
+            statusEl.textContent = `📤 Enviando: ${trabajo.descripcion}...`;
+            this.animarPaquete(packet, '140px', '50%', '50%', '50%', 1500, () => {
                 statusEl.textContent = `🔌 Pasando por Router: ${trabajo.descripcion}...`;
-                this.animarPaquete(packet, '25%', '50%', '66.66%', '50%', 1500, () => {
-                    statusEl.textContent = `📦 Procesando en Servidor Dedicado: ${trabajo.descripcion}...`;
-                    packet.style.left = '66.66%';
-                    packet.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
-                    packet.textContent = '⚙️';
-                    if (trabajo.estado === 'En Proceso') {
-                        this.animarPaquete(packet, '66.66%', '50%', 'calc(100% - 140px)', '50%', 1000, () => {
-                            statusEl.textContent = `🖨️ Imprimiendo: ${trabajo.descripcion}...`;
-                        });
-                    }
+                this.animarPaquete(packet, '50%', '50%', 'calc(100% - 140px)', '50%', 1500, () => {
+                    statusEl.textContent = `🖨️ Imprimiendo: ${trabajo.descripcion}...`;
+                    packet.style.background = 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)';
+                    packet.textContent = '🖨️';
                 });
             });
         },
@@ -338,5 +308,4 @@ function simulacionApp() {
 </script>
 <?php $__env->stopSection(); ?>
 
-
-<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/html/resources/views/servidores/dedicado.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/html/resources/views/servidores/basico.blade.php ENDPATH**/ ?>

@@ -18,24 +18,23 @@
                         </a>
                     </div>
                     <div class="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-8">
+                        <!-- Link al Dashboard -->
+                        <a x-show="!quickNavVisible" href="{{ route('dashboard') }}"
+                           class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            📊 Dashboard
+                        </a>
                         <!-- Nav por defecto (visible cuando quickNavVisible es false) -->
                         <a x-show="!quickNavVisible" href="{{ route('tipo-servidor.index') }}"
                            class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                            @mouseenter="quickNavVisible = true">
-                            Tipos de Servidor
-                        </a>
-                        <a x-show="!quickNavVisible" href="{{ route('dashboard') }}" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Dashboard
-                        </a>
-                        <a x-show="!quickNavVisible" href="{{ route('trabajos.create') }}" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Enviar Impresión
+                            Simuladores
                         </a>
                         <!-- Accesos rápidos (visible cuando quickNavVisible es true) -->
                         <div x-show="quickNavVisible"
                              x-cloak
                              @mouseleave="quickNavVisible = false"
                              class="flex items-center gap-2 text-xs font-medium text-gray-700">
-                            <a href="{{ route('dashboard') }}" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-blue-50 border border-transparent hover:bg-blue-100 hover:border-blue-400 hover:text-blue-700 transition">
+                            <a href="{{ route('servidor.basico') }}" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-blue-50 border border-transparent hover:bg-blue-100 hover:border-blue-400 hover:text-blue-700 transition">
                                 <span class="text-lg">🖥️</span>
                                 <span>Básico</span>
                             </a>

@@ -1,79 +1,73 @@
-<?php $__env->startSection('title', 'Servidor Integrado'); ?>
+@extends('layouts.app')
 
-<?php $__env->startSection('content'); ?>
+@section('title', 'Servidor Básico')
+
+@section('content')
 <div x-data="simulacionApp()" x-init="init()">
     <!-- Header con información del tipo -->
-    <div class="bg-orange-50 border-l-4 border-orange-400 p-4 mb-6 rounded">
+    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6 rounded">
         <div class="flex items-center">
-            <div class="text-3xl mr-3">🖨️</div>
+            <div class="text-3xl mr-3">🖥️</div>
             <div>
-                <h1 class="text-2xl font-bold text-gray-800">Servidor de Impresión Integrado</h1>
-                <p class="text-sm text-gray-600 mt-1">Impresora con servidor de impresión incorporado. Se conecta directamente a la red (Ethernet/Wi-Fi) sin hardware adicional.</p>
+                <h1 class="text-2xl font-bold text-gray-800">Servidor de Impresión Básico</h1>
+                <p class="text-sm text-gray-600 mt-1">Simulación básica de servidor de impresión con arquitectura cliente-servidor tradicional.</p>
             </div>
         </div>
-        <a href="<?php echo e(route('tipo-servidor.index')); ?>" class="text-sm text-orange-600 hover:text-orange-800 mt-2 inline-block">← Volver a selección de tipos</a>
+        <a href="{{ route('tipo-servidor.index') }}" class="text-sm text-blue-600 hover:text-blue-800 mt-2 inline-block">← Volver a selección de tipos</a>
     </div>
 
     <!-- Estadísticas -->
     <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
         <div class="bg-white rounded-lg shadow p-4">
             <div class="text-sm text-gray-600">Total Trabajos</div>
-            <div class="text-2xl font-bold text-gray-800"><?php echo e($estadisticas['total_trabajos']); ?></div>
+            <div class="text-2xl font-bold text-gray-800">{{ $estadisticas['total_trabajos'] }}</div>
         </div>
         <div class="bg-yellow-100 rounded-lg shadow p-4">
             <div class="text-sm text-gray-600">En Cola</div>
-            <div class="text-2xl font-bold text-yellow-800" x-text="estadisticas.en_cola"><?php echo e($estadisticas['en_cola']); ?></div>
+            <div class="text-2xl font-bold text-yellow-800" x-text="estadisticas.en_cola">{{ $estadisticas['en_cola'] }}</div>
         </div>
         <div class="bg-blue-100 rounded-lg shadow p-4">
             <div class="text-sm text-gray-600">En Proceso</div>
-            <div class="text-2xl font-bold text-blue-800" x-text="estadisticas.en_proceso"><?php echo e($estadisticas['en_proceso']); ?></div>
+            <div class="text-2xl font-bold text-blue-800" x-text="estadisticas.en_proceso">{{ $estadisticas['en_proceso'] }}</div>
         </div>
-       <div class="bg-red-100 rounded-lg shadow p-4">
+        <div class="bg-red-100 rounded-lg shadow p-4">
             <div class="text-sm text-gray-600">Bloqueados</div>
-            <div class="text-2xl font-bold text-red-800" x-text="estadisticas.bloqueados"><?php echo e($estadisticas['bloqueados']); ?></div>
+            <div class="text-2xl font-bold text-red-800" x-text="estadisticas.bloqueados">{{ $estadisticas['bloqueados'] }}</div>
         </div>
         <div class="bg-green-100 rounded-lg shadow p-4">
             <div class="text-sm text-gray-600">Terminados</div>
-            <div class="text-2xl font-bold text-green-800" x-text="estadisticas.terminados"><?php echo e($estadisticas['terminados']); ?></div>
+            <div class="text-2xl font-bold text-green-800" x-text="estadisticas.terminados">{{ $estadisticas['terminados'] }}</div>
         </div>
     </div>
 
-    <!-- Visualización específica: Servidor Integrado -->
+    <!-- Visualización de Red -->
     <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
-        <h2 class="text-xl font-bold mb-4">🖨️ Arquitectura: Servidor Integrado</h2>
-        <div id="packet-tracer" class="relative bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg p-8 min-h-[500px] border-2 border-orange-200 overflow-hidden">
-            <!-- Múltiples PCs (10 computadoras) -->
-            <div class="absolute left-4 top-4" style="z-index: 3;">
-                <div class="grid grid-cols-2 gap-2" style="width: 180px;">
-                    <template x-for="i in Array.from({length: 10}, (_, i) => i + 1)" :key="i">
-                        <div class="bg-white rounded shadow p-2 border border-blue-300 text-center">
-                            <div class="text-xs">💻</div>
-                            <div class="text-[8px] font-semibold" x-text="'PC' + i"></div>
-                        </div>
-                    </template>
+        <h2 class="text-xl font-bold mb-4">🌐 Visualización de Red (Simulación)</h2>
+        <div id="packet-tracer" class="relative bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-8 min-h-[400px] border-2 border-blue-200 overflow-hidden">
+            <!-- Cliente/PC -->
+            <div class="absolute left-4 top-1/2 transform -translate-y-1/2" style="z-index: 3;">
+                <div class="bg-white rounded-lg shadow-lg p-4 border-2 border-blue-400 min-w-[120px] text-center">
+                    <div class="text-3xl mb-2">💻</div>
+                    <div class="text-xs font-semibold text-gray-700">PC Cliente</div>
+                    <div class="text-xs text-gray-500 mt-1" x-text="trabajoActual ? trabajoActual.usuario.nombre : 'Esperando...'"></div>
                 </div>
             </div>
 
             <!-- Router/Switch -->
-            <div class="absolute left-1/3 top-1/2 transform -translate-x-1/2 -translate-y-1/2" style="z-index: 3;">
-                <div class="bg-white rounded-lg shadow-lg p-4 border-2 border-green-400 min-w-[120px] text-center">
+            <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2" style="z-index: 3;">
+                <div class="bg-white rounded-lg shadow-lg p-4 border-2 border-green-400 min-w-[100px] text-center">
                     <div class="text-3xl mb-2">🔌</div>
-                    <div class="text-xs font-semibold text-gray-700">Router/Switch</div>
+                    <div class="text-xs font-semibold text-gray-700">Router</div>
                     <div class="text-xs text-gray-500 mt-1">192.168.1.1</div>
                 </div>
             </div>
 
-            <!-- Impresora con Servidor Integrado -->
+            <!-- Impresora -->
             <div class="absolute right-4 top-1/2 transform -translate-y-1/2" style="z-index: 3;">
-                <div class="bg-orange-100 rounded-lg shadow-lg p-6 border-4 border-orange-500 min-w-[180px] text-center">
-                    <div class="text-4xl mb-3">🖨️</div>
-                    <div class="text-sm font-bold text-orange-800">Impresora de Red</div>
-                    <div class="text-xs text-orange-700 mt-2">Servidor Integrado</div>
-                    <div class="text-[10px] text-orange-600 mt-1">Ethernet / Wi-Fi</div>
-                    <div class="text-[10px] text-orange-600 mt-1">IP: 192.168.1.100</div>
-                    <div class="mt-3 p-2 bg-orange-200 rounded text-[10px] text-orange-800">
-                        Sin hardware adicional
-                    </div>
+                <div class="bg-white rounded-lg shadow-lg p-4 border-2 border-purple-400 min-w-[120px] text-center">
+                    <div class="text-3xl mb-2">🖨️</div>
+                    <div class="text-xs font-semibold text-gray-700">Impresora</div>
+                    <div class="text-xs text-gray-500 mt-1">HP LaserJet</div>
                 </div>
             </div>
 
@@ -89,25 +83,24 @@
                 <div class="text-xs text-gray-600" id="packet-status">Esperando trabajo...</div>
                 <div class="mt-2">
                     <div class="w-full bg-gray-200 rounded-full h-2">
-                        <div id="packet-progress" class="bg-orange-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                        <div id="packet-progress" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="mt-4 p-4 bg-orange-50 rounded-lg border-2 border-orange-200">
-            <h3 class="font-semibold text-orange-800 mb-2">Características del Servidor Integrado:</h3>
-            <ul class="text-sm text-orange-700 space-y-1">
-                <li>✓ Servidor de impresión incorporado en la impresora</li>
-                <li>✓ Conexión directa a la red (Ethernet/Wi-Fi)</li>
-                <li>✓ No requiere hardware adicional</li>
-                <li>✓ Máxima sencillez de instalación</li>
-                <li>✓ Ideal para impresoras modernas de oficina</li>
+        <div class="mt-4 p-4 bg-blue-50 rounded-lg border-2 border-blue-200">
+            <h3 class="font-semibold text-blue-800 mb-2">Características del Servidor Básico:</h3>
+            <ul class="text-sm text-blue-700 space-y-1">
+                <li>✓ Arquitectura cliente-servidor tradicional</li>
+                <li>✓ Conexión directa a través de red LAN</li>
+                <li>✓ Ideal para entornos de oficina pequeños</li>
+                <li>✓ Gestión centralizada de impresión</li>
             </ul>
         </div>
     </div>
 
-    <!-- Incluir el resto del dashboard -->
-    <?php echo $__env->make('servidores.partials.flujo-trabajos', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    <!-- Incluir el flujo de trabajos -->
+    @include('servidores.partials.flujo-trabajos')
 </div>
 
 <script>
@@ -146,9 +139,9 @@ function simulacionApp() {
                 if (!container) return;
                 const width = container.offsetWidth || 800;
                 const height = container.offsetHeight || 400;
-                const routerX = width / 3;
+                const centerX = width / 2;
                 const centerY = height / 2;
-                const clientX = 220;
+                const clientX = 140;
                 const printerX = width - 140;
                 
                 svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
@@ -172,24 +165,24 @@ function simulacionApp() {
                 `;
                 svg.appendChild(style);
                 
-                // Línea PCs -> Router
+                // Línea Cliente -> Router
                 const line1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
                 line1.setAttribute('class', 'network-line');
                 line1.setAttribute('x1', clientX);
                 line1.setAttribute('y1', centerY);
-                line1.setAttribute('x2', routerX);
+                line1.setAttribute('x2', centerX);
                 line1.setAttribute('y2', centerY);
-                line1.setAttribute('stroke', '#10b981');
+                line1.setAttribute('stroke', '#3b82f6');
                 svg.appendChild(line1);
                 
-                // Línea Router -> Impresora (directa, sin servidor intermedio)
+                // Línea Router -> Impresora
                 const line2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
                 line2.setAttribute('class', 'network-line');
-                line2.setAttribute('x1', routerX);
+                line2.setAttribute('x1', centerX);
                 line2.setAttribute('y1', centerY);
                 line2.setAttribute('x2', printerX);
                 line2.setAttribute('y2', centerY);
-                line2.setAttribute('stroke', '#f97316');
+                line2.setAttribute('stroke', '#8b5cf6');
                 svg.appendChild(line2);
             }, 100);
         },
@@ -223,22 +216,20 @@ function simulacionApp() {
             container.innerHTML = '';
             
             const packet = document.createElement('div');
-            packet.className = 'packet absolute bg-orange-500 text-white text-xs font-bold rounded-full w-12 h-12 flex items-center justify-center shadow-lg border-2 border-orange-700';
-            packet.style.left = '220px';
+            packet.className = 'packet absolute bg-blue-500 text-white text-xs font-bold rounded-full w-12 h-12 flex items-center justify-center shadow-lg border-2 border-blue-700';
+            packet.style.left = '140px';
             packet.style.top = '50%';
             packet.style.transform = 'translateY(-50%)';
             packet.textContent = '📄';
             container.appendChild(packet);
 
-            statusEl.textContent = `📤 Enviando desde PC: ${trabajo.descripcion}...`;
-            this.animarPaquete(packet, '220px', '50%', '33.33%', '50%', 1500, () => {
-                statusEl.textContent = `🔌 Transmitiendo por red: ${trabajo.descripcion}...`;
-                this.animarPaquete(packet, '33.33%', '50%', 'calc(100% - 140px)', '50%', 2000, () => {
-                    statusEl.textContent = `🖨️ Procesando en Impresora (Servidor Integrado): ${trabajo.descripcion}...`;
-                    packet.style.left = 'calc(100% - 140px)';
-                    packet.style.background = 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)';
-                    packet.textContent = '⚙️';
-                    packet.style.animation = 'pulse 1.5s ease-in-out infinite';
+            statusEl.textContent = `📤 Enviando: ${trabajo.descripcion}...`;
+            this.animarPaquete(packet, '140px', '50%', '50%', '50%', 1500, () => {
+                statusEl.textContent = `🔌 Pasando por Router: ${trabajo.descripcion}...`;
+                this.animarPaquete(packet, '50%', '50%', 'calc(100% - 140px)', '50%', 1500, () => {
+                    statusEl.textContent = `🖨️ Imprimiendo: ${trabajo.descripcion}...`;
+                    packet.style.background = 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)';
+                    packet.textContent = '🖨️';
                 });
             });
         },
@@ -317,7 +308,4 @@ function simulacionApp() {
     }
 }
 </script>
-<?php $__env->stopSection(); ?>
-
-
-<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/html/resources/views/servidores/integrado.blade.php ENDPATH**/ ?>
+@endsection
