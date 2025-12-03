@@ -58,6 +58,10 @@
                                 <span class="text-lg">🐧</span>
                                 <span>CUPS</span>
                             </a>
+                            <a href="{{ route('servidor.cups-backend') }}" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-indigo-50 border border-transparent hover:bg-indigo-100 hover:border-indigo-400 hover:text-indigo-700 transition">
+                                <span class="text-lg">📊</span>
+                                <span>CUPS Flow</span>
+                            </a>
                             <a href="{{ route('servidor.lpr') }}" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-orange-50 border border-transparent hover:bg-orange-100 hover:border-orange-400 hover:text-orange-700 transition">
                                 <span class="text-lg">📠</span>
                                 <span>LPR/LPD</span>

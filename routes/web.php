@@ -11,6 +11,7 @@ use App\Http\Controllers\ServidorSoftwareController;
 use App\Http\Controllers\ServidorIntegradoController;
 use App\Http\Controllers\ServidorCloudController;
 use App\Http\Controllers\ServidorCupsController;
+use App\Http\Controllers\ServidorCupsBackendController;
 use App\Http\Controllers\ServidorLprController;
 
 // Página de selección de tipo de servidor
@@ -27,6 +28,7 @@ Route::prefix('servidor')->name('servidor.')->group(function () {
     Route::get('/integrado', [ServidorIntegradoController::class, 'index'])->name('integrado');
     Route::get('/cloud', [ServidorCloudController::class, 'index'])->name('cloud');
     Route::get('/cups', [ServidorCupsController::class, 'index'])->name('cups');
+    Route::get('/cups-backend', [ServidorCupsBackendController::class, 'index'])->name('cups-backend');
     Route::get('/lpr', [ServidorLprController::class, 'index'])->name('lpr');
 });
 

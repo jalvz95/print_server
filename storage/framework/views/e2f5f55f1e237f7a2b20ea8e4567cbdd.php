@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'Seleccionar Tipo de Servidor'); ?>
 
-@section('title', 'Seleccionar Tipo de Servidor')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="max-w-7xl mx-auto">
     <div class="text-center mb-8">
         <h1 class="text-4xl font-bold text-gray-800 mb-2">🖨️ Simulador de Servidores de Impresión</h1>
@@ -11,7 +9,7 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Servidor Básico -->
-        <a href="{{ route('servidor.basico') }}" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow border-2 border-gray-200 hover:border-blue-400">
+        <a href="<?php echo e(route('servidor.basico')); ?>" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow border-2 border-gray-200 hover:border-blue-400">
             <div class="text-center">
                 <div class="text-5xl mb-4">🖥️</div>
                 <h3 class="text-xl font-bold text-gray-800 mb-2">Servidor Básico</h3>
@@ -23,7 +21,7 @@
         </a>
 
         <!-- Servidor Dedicado (Hardware) -->
-        <a href="{{ route('servidor.dedicado') }}" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow border-2 border-gray-200 hover:border-green-400">
+        <a href="<?php echo e(route('servidor.dedicado')); ?>" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow border-2 border-gray-200 hover:border-green-400">
             <div class="text-center">
                 <div class="text-5xl mb-4">🔌</div>
                 <h3 class="text-xl font-bold text-gray-800 mb-2">Servidor Dedicado</h3>
@@ -35,7 +33,7 @@
         </a>
 
         <!-- Servidor Basado en Software -->
-        <a href="{{ route('servidor.software') }}" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow border-2 border-gray-200 hover:border-purple-400">
+        <a href="<?php echo e(route('servidor.software')); ?>" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow border-2 border-gray-200 hover:border-purple-400">
             <div class="text-center">
                 <div class="text-5xl mb-4">💾</div>
                 <h3 class="text-xl font-bold text-gray-800 mb-2">Servidor Software</h3>
@@ -47,7 +45,7 @@
         </a>
 
         <!-- Servidor Integrado -->
-        <a href="{{ route('servidor.integrado') }}" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow border-2 border-gray-200 hover:border-orange-400">
+        <a href="<?php echo e(route('servidor.integrado')); ?>" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow border-2 border-gray-200 hover:border-orange-400">
             <div class="text-center">
                 <div class="text-5xl mb-4">🖨️</div>
                 <h3 class="text-xl font-bold text-gray-800 mb-2">Servidor Integrado</h3>
@@ -59,7 +57,7 @@
         </a>
 
         <!-- Servidor Cloud -->
-        <a href="{{ route('servidor.cloud') }}" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow border-2 border-gray-200 hover:border-cyan-400">
+        <a href="<?php echo e(route('servidor.cloud')); ?>" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow border-2 border-gray-200 hover:border-cyan-400">
             <div class="text-center">
                 <div class="text-5xl mb-4">☁️</div>
                 <h3 class="text-xl font-bold text-gray-800 mb-2">Servidor Cloud</h3>
@@ -71,7 +69,7 @@
         </a>
 
         <!-- Servidor CUPS -->
-        <a href="{{ route('servidor.cups') }}" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow border-2 border-gray-200 hover:border-purple-400">
+        <a href="<?php echo e(route('servidor.cups')); ?>" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow border-2 border-gray-200 hover:border-purple-400">
             <div class="text-center">
                 <div class="text-5xl mb-4">🐧</div>
                 <h3 class="text-xl font-bold text-gray-800 mb-2">CUPS</h3>
@@ -83,7 +81,7 @@
         </a>
 
         <!-- CUPS Backend Diagram -->
-        <a href="{{ route('servidor.cups-backend') }}" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow border-2 border-gray-200 hover:border-indigo-400">
+        <a href="<?php echo e(route('servidor.cups-backend')); ?>" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow border-2 border-gray-200 hover:border-indigo-400">
             <div class="text-center">
                 <div class="text-5xl mb-4">📊</div>
                 <h3 class="text-xl font-bold text-gray-800 mb-2">CUPS Backend Flow</h3>
@@ -95,7 +93,7 @@
         </a>
 
         <!-- Servidor LPR/LPD -->
-        <a href="{{ route('servidor.lpr') }}" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow border-2 border-gray-200 hover:border-orange-400">
+        <a href="<?php echo e(route('servidor.lpr')); ?>" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow border-2 border-gray-200 hover:border-orange-400">
             <div class="text-center">
                 <div class="text-5xl mb-4">📠</div>
                 <h3 class="text-xl font-bold text-gray-800 mb-2">LPR/LPD</h3>
@@ -138,5 +136,7 @@
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/html/resources/views/tipo-servidor/index.blade.php ENDPATH**/ ?>

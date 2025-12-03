@@ -1,17 +1,17 @@
-<?php $__env->startSection('title', 'Servidor CUPS'); ?>
+<?php $__env->startSection('title', 'Servidor LPR/LPD'); ?>
 
 <?php $__env->startSection('content'); ?>
 <div x-data="simulacionApp()" x-init="init()">
-    <!-- Header con información del tipo (estilo morado característico de CUPS) -->
-    <div class="bg-purple-50 border-l-4 border-purple-400 p-4 mb-6 rounded">
+    <!-- Header con información del tipo -->
+    <div class="bg-orange-50 border-l-4 border-orange-400 p-4 mb-6 rounded">
         <div class="flex items-center">
-            <div class="text-3xl mr-3">🐧</div>
+            <div class="text-3xl mr-3">📠</div>
             <div>
-                <h1 class="text-2xl font-bold text-gray-800">Common Unix Printing System (CUPS)</h1>
-                <p class="text-sm text-gray-600 mt-1">Sistema de impresión estándar en Linux/Unix que gestiona colas, drivers y comunicación con impresoras mediante IPP (Internet Printing Protocol).</p>
+                <h1 class="text-2xl font-bold text-gray-800">Line Printer Remote/Daemon (LPR/LPD)</h1>
+                <p class="text-sm text-gray-600 mt-1">Protocolo clásico de impresión en sistemas Unix/Linux que gestiona colas y comunicación con impresoras mediante el puerto 515. Predecesor de CUPS.</p>
             </div>
         </div>
-        <a href="<?php echo e(route('tipo-servidor.index')); ?>" class="text-sm text-purple-600 hover:text-purple-900 mt-2 inline-block">← Volver a selección de tipos</a>
+        <a href="<?php echo e(route('tipo-servidor.index')); ?>" class="text-sm text-orange-600 hover:text-orange-800 mt-2 inline-block">← Volver a selección de tipos</a>
     </div>
 
     <!-- Estadísticas -->
@@ -40,8 +40,8 @@
 
     <!-- Visualización específica: Servidor CUPS -->
     <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
-        <h2 class="text-xl font-bold mb-4">🐧 Arquitectura: Common Unix Printing System (CUPS)</h2>
-        <div id="packet-tracer" class="relative bg-gradient-to-br from-purple-50 to-indigo-50 rounded-lg p-8 min-h-[500px] border-2 border-purple-200 overflow-hidden" data-impresoras='<?php echo json_encode($impresoras, 15, 512) ?>'>
+        <h2 class="text-xl font-bold mb-4">📠 Arquitectura: Line Printer Remote/Daemon (LPR/LPD)</h2>
+        <div id="packet-tracer" class="relative bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg p-8 min-h-[500px] border-2 border-orange-200 overflow-hidden" data-impresoras='<?php echo json_encode($impresoras, 15, 512) ?>'>
             <!-- Clientes Linux/Unix (10 computadoras) - Parte superior izquierda -->
             <div class="absolute left-4 top-4" style="z-index: 3;">
                 <div class="grid grid-cols-2 gap-2" style="width: 180px;">
@@ -63,15 +63,15 @@
                 </div>
             </div>
 
-            <!-- Servidor CUPS - Centrado verticalmente, centro horizontal -->
-            <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2" style="z-index: 3;">
-                <div class="bg-purple-100 rounded-lg shadow-lg p-4 border-4 border-purple-500 min-w-[160px] text-center">
+            <!-- Servidor LPR/LPD - Posicionado según especificación -->
+            <div class="absolute transform -translate-x-1/2 -translate-y-1/2" style="z-index: 3; top: 35%; left: 53%;">
+                <div class="bg-amber-200 rounded-lg shadow-lg p-4 border-4 border-amber-600 min-w-[160px] text-center" style="background-color: #fef3c7; border-color: #f59e0b;">
                     <div class="text-3xl mb-2">🖥️</div>
-                    <div class="text-xs font-bold text-purple-800">Servidor CUPS</div>
-                    <div class="text-[10px] text-purple-700 mt-1">Linux / Unix Server</div>
-                    <div class="text-[10px] text-purple-600 mt-1">CUPS Daemon (cupsd)</div>
-                    <div class="text-[10px] text-purple-600 mt-1">IPP Protocol (Port 631)</div>
-                    <div class="text-[10px] text-purple-600 mt-1">Spooler /var/spool/cups</div>
+                    <div class="text-xs font-bold text-orange-900">Servidor LPR/LPD</div>
+                    <div class="text-[10px] text-orange-800 mt-1">Linux / Unix Server</div>
+                    <div class="text-[10px] text-orange-700 mt-1">LPD Daemon (lpd)</div>
+                    <div class="text-[10px] text-orange-700 mt-1">LPR Protocol (Port 515)</div>
+                    <div class="text-[10px] text-orange-700 mt-1">Spooler /var/spool/lpd</div>
                 </div>
             </div>
 
@@ -106,33 +106,33 @@
             <div id="packet-container" class="absolute inset-0 pointer-events-none" style="z-index: 2; width: 100%; height: 100%;"></div>
 
             <!-- Estado actual - Parte inferior, centrado -->
-            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-purple-50 rounded-lg shadow-lg p-4 border-2 border-purple-300 min-w-[300px]" style="z-index: 4;">
-                <div class="text-sm font-semibold text-purple-800 mb-2">Estado de Transmisión (IPP):</div>
-                <div class="text-xs text-purple-700" id="packet-status">Esperando trabajo...</div>
+            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white rounded-lg shadow-lg p-4 border-2 border-gray-300 min-w-[300px]" style="z-index: 4;">
+                <div class="text-sm font-semibold text-gray-700 mb-2">Estado de Transmisión (LPR/LPD):</div>
+                <div class="text-xs text-gray-600" id="packet-status">Esperando trabajo...</div>
                 <div class="mt-2">
                     <div class="w-full bg-gray-200 rounded-full h-2">
-                        <div id="packet-progress" class="bg-purple-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                        <div id="packet-progress" class="bg-orange-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="mt-4 p-4 bg-purple-50 rounded-lg border-2 border-purple-300">
-            <h3 class="font-semibold text-purple-800 mb-2">Características de CUPS:</h3>
-            <ul class="text-sm text-purple-700 space-y-1">
-                <li>✓ Sistema de impresión estándar en Linux/Unix</li>
-                <li>✓ Protocolo IPP (Internet Printing Protocol) sobre HTTP</li>
-                <li>✓ Gestión de colas de impresión (/var/spool/cups)</li>
-                <li>✓ Drivers y filtros PostScript, PDF, etc.</li>
-                <li>✓ Interfaz web de administración (puerto 631)</li>
+        <div class="mt-4 p-4 bg-orange-50 rounded-lg border-2 border-orange-200">
+            <h3 class="font-semibold text-orange-800 mb-2">Características de LPR/LPD:</h3>
+            <ul class="text-sm text-orange-700 space-y-1">
+                <li>✓ Protocolo clásico de impresión en Unix/Linux</li>
+                <li>✓ Protocolo LPR/LPD sobre TCP (puerto 515)</li>
+                <li>✓ Gestión de colas de impresión (/var/spool/lpd)</li>
+                <li>✓ Comandos simples: lpr, lpq, lprm, lpc</li>
+                <li>✓ Daemon lpd gestiona las colas</li>
                 <li>✓ Soporte para impresoras de red y locales</li>
-                <li>✓ Autenticación y control de acceso</li>
+                <li>✓ Predecesor de CUPS, aún usado en sistemas legacy</li>
             </ul>
         </div>
     </div>
 
     <!-- Sección de Terminal CUPS -->
     <div class="bg-black rounded-lg shadow-2xl p-6 mb-6" style="position: relative; z-index: 1; background: #000000;">
-        <h2 class="text-xl font-bold mb-4 text-white">💻 Terminal - Comandos CUPS</h2>
+        <h2 class="text-xl font-bold mb-4 text-white">💻 Terminal - Comandos LPR/LPD</h2>
         
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
             <!-- Terminal - Ocupa 2 columnas -->
@@ -145,7 +145,7 @@
                             <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
                             <div class="w-3 h-3 rounded-full bg-green-500"></div>
                         </div>
-                        <div class="text-gray-400 text-xs font-normal">user@cups-server:~</div>
+                        <div class="text-gray-400 text-xs font-normal">user@lpr-server:~</div>
                     </div>
                     
                     <!-- Contenedor de salida de terminal -->
@@ -167,28 +167,28 @@
                 <h3 class="text-gray-800 font-bold text-sm mb-3 border-b border-gray-300 pb-2">📖 Leyenda de Comandos</h3>
                 <div class="space-y-2 text-xs">
                     <div class="border-l-4 border-green-500 bg-green-50 rounded-r-lg" style="padding-left: 1rem; padding-top: 0.5rem; padding-bottom: 0.5rem; border-bottom-left-radius: 0.5rem; border-top-left-radius: 0.5rem;">
-                        <div class="text-green-700 font-mono font-bold mb-1.5">lpstat -p</div>
-                        <div class="text-gray-700">Muestra el estado de todas las impresoras configuradas en el sistema.</div>
+                        <div class="text-green-700 font-mono font-bold mb-1.5">lpr -P impresora archivo</div>
+                        <div class="text-gray-700">Envía un archivo a la cola de impresión de una impresora específica.</div>
                     </div>
                     <div class="border-l-4 border-green-500 bg-green-50 rounded-r-lg" style="padding-left: 1rem; padding-top: 0.5rem; padding-bottom: 0.5rem; border-bottom-left-radius: 0.5rem; border-top-left-radius: 0.5rem;">
-                        <div class="text-green-700 font-mono font-bold mb-1.5">lpstat -o</div>
-                        <div class="text-gray-700">Lista todos los trabajos de impresión en cola o en proceso.</div>
+                        <div class="text-green-700 font-mono font-bold mb-1.5">lpq -P impresora</div>
+                        <div class="text-gray-700">Muestra el estado de la cola de impresión y los trabajos pendientes.</div>
                     </div>
                     <div class="border-l-4 border-green-500 bg-green-50 rounded-r-lg" style="padding-left: 1rem; padding-top: 0.5rem; padding-bottom: 0.5rem; border-bottom-left-radius: 0.5rem; border-top-left-radius: 0.5rem;">
-                        <div class="text-green-700 font-mono font-bold mb-1.5">lpinfo -v</div>
-                        <div class="text-gray-700">Muestra las impresoras de red disponibles usando el protocolo IPP.</div>
+                        <div class="text-green-700 font-mono font-bold mb-1.5">lprm -P impresora id</div>
+                        <div class="text-gray-700">Elimina un trabajo de la cola de impresión por su ID.</div>
                     </div>
                     <div class="border-l-4 border-green-500 bg-green-50 rounded-r-lg" style="padding-left: 1rem; padding-top: 0.5rem; padding-bottom: 0.5rem; border-bottom-left-radius: 0.5rem; border-top-left-radius: 0.5rem;">
-                        <div class="text-green-700 font-mono font-bold mb-1.5">lpadmin</div>
-                        <div class="text-gray-700">Configura una impresora en el sistema CUPS con su URI y driver.</div>
+                        <div class="text-green-700 font-mono font-bold mb-1.5">lpc status</div>
+                        <div class="text-gray-700">Muestra el estado de todas las impresoras y el daemon lpd.</div>
                     </div>
                     <div class="border-l-4 border-green-500 bg-green-50 rounded-r-lg" style="padding-left: 1rem; padding-top: 0.5rem; padding-bottom: 0.5rem; border-bottom-left-radius: 0.5rem; border-top-left-radius: 0.5rem;">
-                        <div class="text-green-700 font-mono font-bold mb-1.5">cupsctl</div>
-                        <div class="text-gray-700">Habilita o deshabilita funciones del servidor CUPS (ej: debug logging).</div>
+                        <div class="text-green-700 font-mono font-bold mb-1.5">lpc enable impresora</div>
+                        <div class="text-gray-700">Habilita una impresora para aceptar trabajos de impresión.</div>
                     </div>
                     <div class="border-l-4 border-green-500 bg-green-50 rounded-r-lg" style="padding-left: 1rem; padding-top: 0.5rem; padding-bottom: 0.5rem; border-bottom-left-radius: 0.5rem; border-top-left-radius: 0.5rem;">
-                        <div class="text-green-700 font-mono font-bold mb-1.5">lp</div>
-                        <div class="text-gray-700">Envía un documento a la cola de impresión de una impresora específica.</div>
+                        <div class="text-green-700 font-mono font-bold mb-1.5">lpc disable impresora</div>
+                        <div class="text-gray-700">Deshabilita una impresora para que no acepte nuevos trabajos.</div>
                     </div>
                 </div>
             </div>
@@ -210,7 +210,7 @@
                             <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
                             <div class="w-3 h-3 rounded-full bg-green-500"></div>
                         </div>
-                        <div class="text-gray-400 text-xs font-normal">root@cups-server:~</div>
+                        <div class="text-gray-400 text-xs font-normal">root@lpr-server:~</div>
                     </div>
                     
                     <!-- Contenedor de salida de terminal -->
@@ -232,20 +232,20 @@
                 <h3 class="text-gray-800 font-bold text-sm mb-3 border-b border-gray-300 pb-2">📖 Leyenda de Comandos</h3>
                 <div class="space-y-2 text-xs">
                     <div class="border-l-4 border-green-500 bg-green-50 rounded-r-lg" style="padding-left: 1rem; padding-top: 0.5rem; padding-bottom: 0.5rem; border-bottom-left-radius: 0.5rem; border-top-left-radius: 0.5rem;">
-                        <div class="text-green-700 font-mono font-bold mb-1.5">cat /etc/cups/cupsd.conf</div>
-                        <div class="text-gray-700">Muestra el contenido del archivo de configuración principal de CUPS.</div>
+                        <div class="text-green-700 font-mono font-bold mb-1.5">cat /etc/printcap</div>
+                        <div class="text-gray-700">Muestra el archivo de configuración de impresoras del sistema LPR/LPD.</div>
                     </div>
                     <div class="border-l-4 border-green-500 bg-green-50 rounded-r-lg" style="padding-left: 1rem; padding-top: 0.5rem; padding-bottom: 0.5rem; border-bottom-left-radius: 0.5rem; border-top-left-radius: 0.5rem;">
-                        <div class="text-green-700 font-mono font-bold mb-1.5">systemctl status cups</div>
-                        <div class="text-gray-700">Verifica el estado del servicio CUPS (activo, inactivo, PID, uptime).</div>
+                        <div class="text-green-700 font-mono font-bold mb-1.5">ps aux | grep lpd</div>
+                        <div class="text-gray-700">Verifica si el daemon lpd está ejecutándose en el sistema.</div>
                     </div>
                     <div class="border-l-4 border-green-500 bg-green-50 rounded-r-lg" style="padding-left: 1rem; padding-top: 0.5rem; padding-bottom: 0.5rem; border-bottom-left-radius: 0.5rem; border-top-left-radius: 0.5rem;">
-                        <div class="text-green-700 font-mono font-bold mb-1.5">cupsctl</div>
-                        <div class="text-gray-700">Muestra la configuración actual del servidor CUPS sin editar archivos.</div>
+                        <div class="text-green-700 font-mono font-bold mb-1.5">netstat -an | grep 515</div>
+                        <div class="text-gray-700">Verifica que el puerto 515 (LPR/LPD) esté escuchando conexiones.</div>
                     </div>
                     <div class="border-l-4 border-green-500 bg-green-50 rounded-r-lg" style="padding-left: 1rem; padding-top: 0.5rem; padding-bottom: 0.5rem; border-bottom-left-radius: 0.5rem; border-top-left-radius: 0.5rem;">
-                        <div class="text-green-700 font-mono font-bold mb-1.5">lpstat -t</div>
-                        <div class="text-gray-700">Muestra información completa del sistema: scheduler, destino por defecto y dispositivos.</div>
+                        <div class="text-green-700 font-mono font-bold mb-1.5">lpc status all</div>
+                        <div class="text-gray-700">Muestra el estado completo de todas las impresoras y colas del sistema.</div>
                     </div>
                 </div>
             </div>
@@ -294,8 +294,9 @@ function simulacionApp() {
                 const width = rect.width || container.offsetWidth || 800;
                 const height = rect.height || container.offsetHeight || 500;
                 const routerX = width / 4;
-                const servidorX = width / 2;
-                const centerY = height / 2;
+                const servidorX = width * 0.53; // 53% desde la izquierda
+                const servidorY = height * 0.35; // 35% desde arriba
+                const centerY = height / 2; // Para el router
                 const clientX = 200;
                 const printerX = width - 200;
                 const printerY = 100;
@@ -321,10 +322,10 @@ function simulacionApp() {
                 `;
                 svg.appendChild(style);
                 
-                // Definir marcador de flecha para CUPS (morado)
+                // Definir marcador de flecha para LPR/LPD (ámbar)
                 const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
                 const marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
-                marker.setAttribute('id', 'arrowhead-cups');
+                marker.setAttribute('id', 'arrowhead-lpr');
                 marker.setAttribute('markerWidth', '10');
                 marker.setAttribute('markerHeight', '10');
                 marker.setAttribute('refX', '9');
@@ -332,13 +333,13 @@ function simulacionApp() {
                 marker.setAttribute('orient', 'auto');
                 const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
                 polygon.setAttribute('points', '0 0, 10 3, 0 6');
-                polygon.setAttribute('fill', '#8b5cf6');
+                polygon.setAttribute('fill', '#f59e0b');
                 marker.appendChild(polygon);
                 defs.appendChild(marker);
                 
                 // Marcador de flecha verde para conexión inicial
                 const markerGreen = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
-                markerGreen.setAttribute('id', 'arrowhead-green');
+                markerGreen.setAttribute('id', 'arrowhead-green-lpr');
                 markerGreen.setAttribute('markerWidth', '10');
                 markerGreen.setAttribute('markerHeight', '10');
                 markerGreen.setAttribute('refX', '9');
@@ -359,7 +360,7 @@ function simulacionApp() {
                 line1.setAttribute('x2', routerX);
                 line1.setAttribute('y2', centerY);
                 line1.setAttribute('stroke', '#10b981');
-                line1.setAttribute('marker-end', 'url(#arrowhead-green)');
+                line1.setAttribute('marker-end', 'url(#arrowhead-green-lpr)');
                 svg.appendChild(line1);
                 
                 // Etiqueta para línea Clientes -> Router
@@ -385,72 +386,72 @@ function simulacionApp() {
                 label1.textContent = 'TCP/IP';
                 svg.appendChild(label1);
                 
-                // Línea Router -> Servidor CUPS (horizontal, morado, con flecha)
+                // Línea Router -> Servidor LPR/LPD (hacia arriba, ámbar, con flecha)
                 const line2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
                 line2.setAttribute('class', 'network-line');
                 line2.setAttribute('x1', routerX);
                 line2.setAttribute('y1', centerY);
                 line2.setAttribute('x2', servidorX);
-                line2.setAttribute('y2', centerY);
-                line2.setAttribute('stroke', '#8b5cf6');
-                line2.setAttribute('marker-end', 'url(#arrowhead-cups)');
+                line2.setAttribute('y2', servidorY);
+                line2.setAttribute('stroke', '#f59e0b');
+                line2.setAttribute('marker-end', 'url(#arrowhead-lpr)');
                 svg.appendChild(line2);
                 
-                // Etiqueta para línea Router -> Servidor CUPS
+                // Etiqueta para línea Router -> Servidor LPR/LPD
                 const label2Bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                label2Bg.setAttribute('x', (routerX + servidorX) / 2 - 60);
-                label2Bg.setAttribute('y', centerY - 25);
-                label2Bg.setAttribute('width', '120');
+                label2Bg.setAttribute('x', (routerX + servidorX) / 2 - 70);
+                label2Bg.setAttribute('y', (centerY + servidorY) / 2 - 25);
+                label2Bg.setAttribute('width', '140');
                 label2Bg.setAttribute('height', '18');
                 label2Bg.setAttribute('fill', 'white');
                 label2Bg.setAttribute('opacity', '0.9');
                 label2Bg.setAttribute('rx', '3');
-                label2Bg.setAttribute('stroke', '#8b5cf6');
+                label2Bg.setAttribute('stroke', '#f59e0b');
                 label2Bg.setAttribute('stroke-width', '1');
                 svg.appendChild(label2Bg);
                 
                 const label2 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                 label2.setAttribute('x', (routerX + servidorX) / 2);
-                label2.setAttribute('y', centerY - 10);
-                label2.setAttribute('fill', '#8b5cf6');
+                label2.setAttribute('y', (centerY + servidorY) / 2 - 10);
+                label2.setAttribute('fill', '#f59e0b');
                 label2.setAttribute('font-size', '11');
                 label2.setAttribute('font-weight', 'bold');
                 label2.setAttribute('text-anchor', 'middle');
-                label2.textContent = 'IPP (Port 631)';
+                label2.textContent = 'LPR/LPD (Port 515)';
                 svg.appendChild(label2);
                 
-                // Línea Servidor CUPS -> Impresoras (hacia la parte superior derecha, con flecha)
+                // Línea Servidor LPR/LPD -> Impresoras (hacia la parte superior derecha, con flecha)
                 const line3 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
                 line3.setAttribute('class', 'network-line');
                 line3.setAttribute('x1', servidorX);
-                line3.setAttribute('y1', centerY);
+                line3.setAttribute('y1', servidorY);
                 line3.setAttribute('x2', printerX);
                 line3.setAttribute('y2', printerY);
-                line3.setAttribute('stroke', '#8b5cf6');
-                line3.setAttribute('marker-end', 'url(#arrowhead-cups)');
+                line3.setAttribute('stroke', '#f59e0b');
+                line3.setAttribute('marker-end', 'url(#arrowhead-lpr)');
                 svg.appendChild(line3);
                 
                 // Etiqueta para línea Servidor -> Impresoras
                 const label3Bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
                 label3Bg.setAttribute('x', (servidorX + printerX) / 2 - 50);
-                label3Bg.setAttribute('y', (centerY + printerY) / 2 - 20);
+                label3Bg.setAttribute('y', (servidorY + printerY) / 2 - 20);
                 label3Bg.setAttribute('width', '100');
                 label3Bg.setAttribute('height', '16');
                 label3Bg.setAttribute('fill', 'white');
                 label3Bg.setAttribute('opacity', '0.9');
                 label3Bg.setAttribute('rx', '3');
-                label3Bg.setAttribute('stroke', '#8b5cf6');
+                label3Bg.setAttribute('stroke', '#f59e0b');
                 label3Bg.setAttribute('stroke-width', '1');
                 svg.appendChild(label3Bg);
                 
                 const label3 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                 label3.setAttribute('x', (servidorX + printerX) / 2);
-                label3.setAttribute('y', (centerY + printerY) / 2 - 5);
-                label3.setAttribute('fill', '#8b5cf6');
+                label3.setAttribute('y', (servidorY + printerY) / 2 - 5);
+                label3.setAttribute('fill', '#f59e0b');
                 label3.setAttribute('font-size', '10');
                 label3.setAttribute('font-weight', 'bold');
                 label3.setAttribute('text-anchor', 'middle');
-                label3.textContent = 'IPP → Printer';
+                label3.textContent = 'LPR → Printer';
                 svg.appendChild(label3);
             }, 100);
         },
@@ -484,21 +485,22 @@ function simulacionApp() {
             container.innerHTML = '';
             
             const packet = document.createElement('div');
-            packet.className = 'packet absolute bg-indigo-500 text-white text-xs font-bold rounded-full w-12 h-12 flex items-center justify-center shadow-lg border-2 border-indigo-700';
+            packet.className = 'packet absolute bg-orange-500 text-white text-xs font-bold rounded-full w-12 h-12 flex items-center justify-center shadow-lg border-2 border-orange-700';
             packet.style.left = '200px';
             packet.style.top = '100px';
             packet.textContent = '📄';
             container.appendChild(packet);
             
-            statusEl.textContent = `Enviando trabajo "${trabajo.descripcion}" desde cliente Linux...`;
+            statusEl.textContent = `Enviando trabajo "${trabajo.descripcion}" vía LPR/LPD...`;
             
             const containerEl = container.parentElement;
             const rect = containerEl.getBoundingClientRect();
             const width = rect.width || containerEl.offsetWidth || 800;
             const height = rect.height || containerEl.offsetHeight || 500;
             const routerX = width / 4;
-            const servidorX = width / 2;
-            const centerY = height / 2;
+            const servidorX = width * 0.53; // 53% desde la izquierda
+            const servidorY = height * 0.35; // 35% desde arriba
+            const centerY = height / 2; // Para el router
             const printerX = width - 200;
             const printerY = 100;
             
@@ -523,7 +525,7 @@ function simulacionApp() {
                     currentY = centerY;
                     step = 0;
                     const dx2 = (servidorX - currentX) / 30;
-                    const dy2 = (centerY - currentY) / 30;
+                    const dy2 = (servidorY - currentY) / 30;
                     const animate2 = () => {
                         if (step < 30) {
                             currentX += dx2;
@@ -533,12 +535,12 @@ function simulacionApp() {
                             step++;
                             requestAnimationFrame(animate2);
                         } else {
-                            statusEl.textContent = `Procesando en CUPS (IPP) - "${trabajo.descripcion}"...`;
+                            statusEl.textContent = `Procesando en LPR/LPD (Puerto 515) - "${trabajo.descripcion}"...`;
                             packet.style.left = servidorX + 'px';
-                            packet.style.top = centerY + 'px';
+                            packet.style.top = servidorY + 'px';
                             setTimeout(() => {
                                 const dx3 = (printerX - servidorX) / 30;
-                                const dy3 = (printerY - centerY) / 30;
+                                const dy3 = (printerY - servidorY) / 30;
                                 step = 0;
                                 const animate3 = () => {
                                     if (step < 30) {
@@ -626,44 +628,45 @@ function terminalConsole() {
         
         commands: [
             {
-                cmd: 'lpstat -p',
-                output: [
-                    'printer Impresora_1 is idle.  enabled since Mon Nov 14 10:00:00 2025',
-                    'printer Impresora_2 is idle.  enabled since Mon Nov 14 10:00:00 2025',
-                    'printer Impresora_3 is idle.  enabled since Mon Nov 14 10:00:00 2025',
-                    'printer Impresora_4 is idle.  enabled since Mon Nov 14 10:00:00 2025'
-                ],
-                dynamic: false
+                cmd: 'lpr -P Impresora_1 documento.pdf',
+                output: [],
+                dynamic: true // Se generará dinámicamente
             },
             {
-                cmd: 'lpstat -o',
+                cmd: 'lpq -P Impresora_1',
                 output: [],
                 dynamic: true // Se llenará con trabajos reales
             },
             {
-                cmd: 'lpinfo -v',
+                cmd: 'lpc status',
                 output: [
-                    'network ipp://192.168.1.100:631/ipp/print',
-                    'network ipp://192.168.1.101:631/ipp/print',
-                    'network ipp://192.168.1.102:631/ipp/print',
-                    'network ipp://192.168.1.103:631/ipp/print'
+                    'Impresora_1:',
+                    '    printer is on device \'parallel\' speed -1',
+                    '    queuing is enabled',
+                    '    printing is enabled',
+                    '    no entries',
+                    'Impresora_2:',
+                    '    printer is on device \'parallel\' speed -1',
+                    '    queuing is enabled',
+                    '    printing is enabled',
+                    '    no entries'
                 ],
                 dynamic: false
             },
             {
-                cmd: 'lpadmin -p Impresora_1 -E -v ipp://192.168.1.100:631/ipp/print -m everywhere',
-                output: ['Impresora configurada correctamente'],
+                cmd: 'lpc enable Impresora_1',
+                output: ['printer: Impresora_1 enabled'],
                 dynamic: false
             },
             {
-                cmd: 'cupsctl --debug-logging',
-                output: ['Debug logging habilitado'],
+                cmd: 'lprm -P Impresora_1 -',
+                output: ['dfA123Impresora_1 dequeued'],
                 dynamic: false
             },
             {
-                cmd: 'lp -d Impresora_1 -n 1 documento.pdf',
+                cmd: 'lpq -a',
                 output: [],
-                dynamic: true // Se generará dinámicamente
+                dynamic: true // Se llenará con trabajos reales
             }
         ],
         
@@ -827,17 +830,20 @@ function terminalConsole() {
             // Preparar la salida
             let output = [];
             if (command.dynamic) {
-                if (command.cmd === 'lpstat -o') {
+                if (command.cmd.startsWith('lpq')) {
                     const trabajosEnCola = this.trabajos.filter(t => t.estado === 'En Cola' || t.estado === 'En Proceso');
                     if (trabajosEnCola.length > 0) {
                         trabajosEnCola.forEach(trabajo => {
-                            output.push(`${'Impresora_' + (trabajo.impresora_id || 1)}-${trabajo.id} ${trabajo.usuario?.nombre || 'Usuario'} ${trabajo.paginas} páginas ${trabajo.estado}`);
+                            const printerName = 'Impresora_' + (trabajo.impresora_id || 1);
+                            output.push(`${printerName} is ready and printing`);
+                            output.push(`Rank    Owner   Job     File(s)                         Total Size`);
+                            output.push(`active  ${(trabajo.usuario?.nombre || 'Usuario').substring(0, 8).padEnd(8)} ${trabajo.id.toString().padStart(4)} ${trabajo.descripcion.substring(0, 30).padEnd(30)} ${trabajo.paginas * 1024} bytes`);
                         });
                     } else {
-                        output.push('No hay trabajos en cola');
+                        output.push('no entries');
                     }
-                } else if (command.cmd.startsWith('lp -d')) {
-                    output.push(`request id is Impresora_1-${this.trabajos.length + 1} (1 file(s))`);
+                } else if (command.cmd.startsWith('lpr -P')) {
+                    output.push(`Job ${this.trabajos.length + 1} queued for Impresora_1`);
                 }
             } else {
                 output = command.output;
@@ -939,58 +945,43 @@ function configTerminalConsole() {
         
         commands: [
             {
-                cmd: 'cat /etc/cups/cupsd.conf',
+                cmd: 'cat /etc/printcap',
                 output: [
-                    '# Configuración del servidor CUPS',
-                    'Listen localhost:631',
-                    'Listen *:631',
-                    'LogLevel info',
-                    'MaxJobs 100',
-                    'MaxJobsPerUser 50',
-                    'DefaultShared Yes',
-                    'WebInterface Yes'
+                    '# /etc/printcap - printer capability database',
+                    '# Impresora_1',
+                    'Impresora_1|lp|local printer:\\',
+                    '    :lp=/dev/lp0:\\',
+                    '    :sd=/var/spool/lpd/Impresora_1:\\',
+                    '    :mx#0:\\',
+                    '    :sh:',
+                    '# Impresora_2',
+                    'Impresora_2|lp2|network printer:\\',
+                    '    :lp=:rm=192.168.1.101:rp=Impresora_2:\\',
+                    '    :sd=/var/spool/lpd/Impresora_2:\\',
+                    '    :mx#0:'
                 ],
                 dynamic: false
             },
             {
-                cmd: 'systemctl status cups',
+                cmd: 'ps aux | grep lpd',
                 output: [
-                    '● cups.service - CUPS Scheduler',
-                    '   Loaded: loaded (/lib/systemd/system/cups.service; enabled; vendor preset: enabled)',
-                    '   Active: active (running) since Mon 2025-11-14 10:00:00 UTC; 7h 23min ago',
-                    '     Docs: man:cupsd(8)',
-                    '  Process: 1234 ExecStart=/usr/sbin/cupsd -l (code=exited, status=0/SUCCESS)',
-                    ' Main PID: 1234 (cupsd)',
-                    '    Tasks: 3 (limit: 4915)',
-                    '   Memory: 12.5M',
-                    '   CGroup: /system.slice/cups.service'
+                    'root      1234  0.0  0.1  12345  1234 ?        Ss   10:00   0:00 /usr/sbin/lpd',
+                    'root      1235  0.0  0.0   1234   123 ?        S    10:00   0:00 lpd: accepting connections',
+                    'user      5678  0.0  0.0   1234   123 pts/0    S+   10:05   0:00 grep lpd'
                 ],
                 dynamic: false
             },
             {
-                cmd: 'cupsctl',
+                cmd: 'netstat -an | grep 515',
                 output: [
-                    'AuthInfoRequired negotiate',
-                    'BrowseLocalProtocols dnssd',
-                    'BrowseRemoteProtocols dnssd',
-                    'DefaultEncryption Never',
-                    'DefaultShared Yes',
-                    'MaxJobs 100',
-                    'MaxJobsPerUser 50',
-                    'WebInterface Yes'
+                    'tcp        0      0 0.0.0.0:515             0.0.0.0:*               LISTEN',
+                    'tcp        0      0 ::1:515                 :::*                    LISTEN'
                 ],
                 dynamic: false
             },
             {
-                cmd: 'lpstat -t',
-                output: [
-                    'scheduler is running',
-                    'system default destination: Impresora_1',
-                    'device for Impresora_1: ipp://192.168.1.100:631/ipp/print',
-                    'device for Impresora_2: ipp://192.168.1.101:631/ipp/print',
-                    'device for Impresora_3: ipp://192.168.1.102:631/ipp/print',
-                    'device for Impresora_4: ipp://192.168.1.103:631/ipp/print'
-                ],
+                cmd: 'lpc status all',
+                output: [],
                 dynamic: true
             }
         ],
@@ -1129,9 +1120,7 @@ function configTerminalConsole() {
             // Preparar la salida
             let output = [];
             if (command.dynamic) {
-                if (command.cmd === 'lpstat -t') {
-                    output.push('scheduler is running');
-                    output.push('system default destination: Impresora_1');
+                if (command.cmd === 'lpc status all') {
                     // Agregar impresoras dinámicamente leyendo desde atributo data (evita mezclar Blade/PHP dentro del JS)
                     let impresoras = [];
                     const impresorasDataEl = document.getElementById('packet-tracer');
@@ -1143,7 +1132,17 @@ function configTerminalConsole() {
                         }
                     }
                     impresoras.forEach(impresora => {
-                        output.push(`device for ${impresora.nombre}: ipp://192.168.1.${100 + impresora.id}:631/ipp/print`);
+                        output.push(`${impresora.nombre}:`);
+                        output.push(`    printer is on device 'parallel' speed -1`);
+                        output.push(`    queuing is enabled`);
+                        output.push(`    printing is enabled`);
+                        const trabajosEnCola = this.trabajos.filter(t => t.impresora_id === impresora.id && (t.estado === 'En Cola' || t.estado === 'En Proceso'));
+                        if (trabajosEnCola.length > 0) {
+                            output.push(`    ${trabajosEnCola.length} entries`);
+                        } else {
+                            output.push(`    no entries`);
+                        }
+                        output.push('');
                     });
                 } else {
                     output = command.output;
@@ -1220,4 +1219,4 @@ function configTerminalConsole() {
 <?php $__env->stopSection(); ?>
 
 
-<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/html/resources/views/servidores/cups.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/html/resources/views/servidores/lpr.blade.php ENDPATH**/ ?>
