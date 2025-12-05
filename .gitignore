@@ -1,27 +1,34 @@
+# Laravel
 /node_modules
 /public/hot
 /public/storage
+/public/build
 /storage/*.key
 /vendor
 .env
 .env.backup
+.env.production
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
+auth.json
 npm-debug.log
 yarn-error.log
+/.fleet
 /.idea
 /.vscode
+
+# Assets temporales
 /assets
-/node_modules
-/public/hot
-/public/storage
-/storage/*.key
-/vendor
-/package-lock.json
-/package.json
-/yarn.lock
-/yarn-error.log
-/npm-debug.log
-/npm-debug.log.json
-/npm-debug.log.json.gz
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Docker volumes
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/logs/*

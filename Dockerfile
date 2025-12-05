@@ -25,33 +25,11 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Establecer directorio de trabajo
 WORKDIR /var/www/html
 
-# Copiar archivos de configuración primero
-COPY composer.json package.json ./
-COPY composer.lock* package-lock.json* ./
-
-# Instalar dependencias de Composer (sin optimización para desarrollo)
-RUN composer install --no-scripts --no-autoloader
-
-# Copiar resto de archivos
-COPY . .
-
-# Completar instalación de Composer
-RUN composer dump-autoload --optimize --no-scripts
-
-# Instalar dependencias de npm
-RUN npm install
-
-# Compilar assets
-RUN npm run build
-
-# Configurar permisos
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html/storage \
-    && chmod -R 755 /var/www/html/bootstrap/cache
+# Configurar permisos para www-data
+RUN chown -R www-data:www-data /var/www/html
 
 # Exponer puerto
 EXPOSE 9000
 
 # Comando por defecto
 CMD ["php-fpm"]
-
