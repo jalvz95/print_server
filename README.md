@@ -30,31 +30,7 @@ Simulador web de servidor de impresión desarrollado con Laravel 11 y Alpine.js.
 - Docker Desktop instalado y corriendo
 - Git (para clonar el repositorio)
 
-### Opción 1: Script Automático (Recomendado)
-
-```bash
-# 1. Clonar el repositorio
-git clone <url-del-repositorio>
-cd print_server
-
-# 2. Ejecutar script de setup
-./setup.sh
-```
-
-El script automáticamente:
-- Construye las imágenes Docker
-- Levanta los servicios (MySQL, PHP-FPM, Nginx)
-- Instala dependencias de Composer y npm
-- Configura el archivo .env
-- Ejecuta migraciones y seeders
-- Compila los assets
-- Limpia las cachés
-
-**¡Listo!** Abre http://localhost:8080 en tu navegador
-
----
-
-### Opción 2: Instalación Manual
+### Instalación Manual
 
 ```bash
 # 1. Clonar el repositorio
